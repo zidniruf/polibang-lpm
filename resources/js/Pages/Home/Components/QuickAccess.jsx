@@ -48,19 +48,21 @@ export default function QuickAccess() {
 
 
                 {/* Grid langsung di-set menjadi 2 kolom di mobile dan 4 kolom di desktop */}
-                <div className="bg-gray-100 rounded-3xl lg:rounded-full p-6 sm:p-8 lg:px-10 lg:py-6 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
+                <div className="bg-white rounded-3xl lg:rounded-full p-6 sm:p-8 lg:px-10 lg:py-6 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
                     
                     {menus.map((menu) => (
-                        <a
-                            key={menu.title}
-                            href={menu.link}
-                            className="
-                                flex flex-col lg:flex-row 
-                                items-center lg:items-center 
-                                text-center lg:text-left 
-                                gap-3 sm:gap-4 group transition-transform lg:hover:-translate-y-1
-                            "
-                        >
+                            <a
+                                key={menu.title}
+                                href={menu.link}
+                                aria-label={`Menu ${menu.title}: ${menu.desc}`}
+                                className="
+                                    flex flex-col lg:flex-row 
+                                    items-center lg:items-center 
+                                    text-center lg:text-left 
+                                    gap-3 sm:gap-4 group transition-transform lg:hover:-translate-y-1
+                                "
+                            >
+
                             <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-gray-300 text-gray-700 flex items-center justify-center shrink-0 group-hover:bg-gray-400 group-hover:text-gray-900 transition-colors shadow-inner">
                                 {menu.icon}
                             </div>

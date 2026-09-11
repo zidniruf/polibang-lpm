@@ -1,3 +1,4 @@
+import { Head } from "@inertiajs/react";
 import PublicLayout from "@/Layouts/PublicLayout";
 
 import Hero from "./Components/Hero";
@@ -22,6 +23,10 @@ export default function Home({
 
     return (
         <PublicLayout setting={setting}>
+            <Head>
+                <title>{setting?.name || "LPM Polibang"}</title>
+                <meta name="description" content={setting?.description || "Lembaga Penjaminan Mutu Polibang"} />
+            </Head>
 
             <AnnouncementPopup announcement={popupAnnouncement} />
 

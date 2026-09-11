@@ -18,10 +18,10 @@ class User extends Authenticatable implements FilamentUser
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return str_ends_with($this->email, '@polibang.ac.id');
-    }
+public function canAccessPanel(Panel $panel): bool
+{
+    return true;
+}
 
     /**
      * Get the attributes that should be cast.
