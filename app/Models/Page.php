@@ -8,8 +8,19 @@ use App\Models\Document;
 use App\Models\PageDocumentBlock;
 use App\Models\PageGalleryBlock;
 
+use Mews\Purifier\Facades\Purifier;
+
 class Page extends Model
 {
+    protected static function booted()
+    {
+        static::saving(function ($page) {
+            if ($page->isDirty('content')) {
+                $page->content = Purifier::clean($page->content);
+            }
+        });
+    }
+
     protected $fillable = [
         'title',
         'slug',

@@ -4,8 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Mews\Purifier\Facades\Purifier;
+
 class News extends Model
 {
+    protected static function booted()
+    {
+        static::saving(function ($news) {
+            if ($news->isDirty('content')) {
+                $news->content = Purifier::clean($news->content);
+            }
+        });
+    }
+
     protected $fillable = [
         'news_category_id',
         'title',
