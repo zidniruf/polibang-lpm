@@ -19,8 +19,7 @@ class DocumentCategoryForm
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(
-                        fn ($state, $set)
-                            => $set('slug', Str::slug($state))
+                        fn ($state, $set) => $set('slug', Str::slug($state))
                     ),
 
                 TextInput::make('slug')

@@ -18,10 +18,10 @@ class DocumentsTable
                 TextColumn::make('title')
                     ->searchable(),
 
-TextColumn::make('category.name')
-    ->label('Kategori')
-    ->badge()
-    ->searchable(),
+                TextColumn::make('category.name')
+                    ->label('Kategori')
+                    ->badge()
+                    ->searchable(),
 
                 TextColumn::make('year'),
 

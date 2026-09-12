@@ -2,19 +2,19 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\News;
-use App\Models\Gallery;
-use App\Models\Document;
 use App\Models\Announcement;
+use App\Models\Document;
+use App\Models\Gallery;
+use App\Models\News;
 use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class DashboardStats extends StatsOverviewWidget
 {
-protected int|string|array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
-protected static ?int $sort = 1;
+    protected static ?int $sort = 1;
 
     protected function getStats(): array
     {

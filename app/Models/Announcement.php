@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
 
 class Announcement extends Model
@@ -16,7 +16,7 @@ class Announcement extends Model
             }
 
             if (empty($announcement->slug) && ! empty($announcement->title)) {
-                $announcement->slug = \Illuminate\Support\Str::slug($announcement->title);
+                $announcement->slug = Str::slug($announcement->title);
             }
         });
 

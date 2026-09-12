@@ -3,11 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\MenuGroup;
-use App\Models\Document;
-use App\Models\PageDocumentBlock;
-use App\Models\PageGalleryBlock;
-
 use Mews\Purifier\Facades\Purifier;
 
 class Page extends Model

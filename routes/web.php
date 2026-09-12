@@ -1,17 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use App\Models\News;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
-use App\Models\Document;
-use App\Models\Page;
-use App\Models\OrganizationMember;
 use App\Models\Announcement;
+use App\Models\Document;
 use App\Models\Gallery;
 use App\Models\GalleryCategory;
-
+use App\Models\News;
+use App\Models\OrganizationMember;
+use App\Models\Page;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -20,15 +19,14 @@ Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 Route::get('/halaman/{slug}', function ($slug) {
 
-$page = Page::with([
-    'documentBlocks',
-    'documentBlocks.documents',
-    'galleryBlocks',
-])
+    $page = Page::with([
+        'documentBlocks',
+        'documentBlocks.documents',
+        'galleryBlocks',
+    ])
         ->where('slug', $slug)
         ->where('is_published', true)
         ->firstOrFail();
-        
 
     $page->documentBlocks->each(function ($block) {
 
@@ -56,42 +54,41 @@ $page = Page::with([
 
     });
 
-$page->galleryBlocks->each(function ($block) {
+    $page->galleryBlocks->each(function ($block) {
 
-    $galleries = collect();
+        $galleries = collect();
 
-    if ($block->filter_type === 'category') {
+        if ($block->filter_type === 'category') {
 
-        $galleries = \App\Models\Gallery::query()
-            ->where(
-                'gallery_category_id',
-                $block->filter_value
-            )
-            ->where('is_published', true)
-            ->orderBy('sort_order')
-            ->get();
-    }
+            $galleries = Gallery::query()
+                ->where(
+                    'gallery_category_id',
+                    $block->filter_value
+                )
+                ->where('is_published', true)
+                ->orderBy('sort_order')
+                ->get();
+        }
 
-    if ($block->filter_type === 'gallery') {
+        if ($block->filter_type === 'gallery') {
 
-        $galleries = \App\Models\Gallery::query()
-            ->where('id', $block->filter_value)
-            ->where('is_published', true)
-            ->get();
-    }
+            $galleries = Gallery::query()
+                ->where('id', $block->filter_value)
+                ->where('is_published', true)
+                ->get();
+        }
 
-    $block->setRelation(
-        'galleries',
-        $galleries
-    );
+        $block->setRelation(
+            'galleries',
+            $galleries
+        );
 
-});
+    });
 
     return Inertia::render('Page/Show', [
         'page' => $page,
 
-        'organizationMembers' =>
-            $page->show_structure
+        'organizationMembers' => $page->show_structure
                 ? OrganizationMember::query()
                     ->where('is_active', true)
                     ->orderBy('sort_order')
@@ -107,9 +104,9 @@ Route::get('/profil', function () {
         ->where('is_published', true)
         ->firstOrFail();
 
-return Inertia::render('Page/Show', [
-    'page' => $page,
-]);
+    return Inertia::render('Page/Show', [
+        'page' => $page,
+    ]);
 
 });
 
@@ -119,9 +116,9 @@ Route::get('/spmi', function () {
         ->where('is_published', true)
         ->firstOrFail();
 
-return Inertia::render('Page/Show', [
-    'page' => $page,
-]);
+    return Inertia::render('Page/Show', [
+        'page' => $page,
+    ]);
 
 });
 
@@ -131,9 +128,9 @@ Route::get('/kontak', function () {
         ->where('is_published', true)
         ->firstOrFail();
 
-return Inertia::render('Page/Show', [
-    'page' => $page,
-]);
+    return Inertia::render('Page/Show', [
+        'page' => $page,
+    ]);
 
 });
 
@@ -144,9 +141,9 @@ Route::get('/dokumen', function () {
         ->latest()
         ->get();
 
-return Inertia::render('Documents/Index', [
-    'documents' => $documents,
-]);
+    return Inertia::render('Documents/Index', [
+        'documents' => $documents,
+    ]);
 
 });
 
@@ -186,9 +183,9 @@ Route::get('/berita', function () {
         ->latest('published_at')
         ->paginate(9);
 
-return Inertia::render('News/Index', [
-    'news' => $news,
-]);
+    return Inertia::render('News/Index', [
+        'news' => $news,
+    ]);
 
 });
 
@@ -221,7 +218,6 @@ Route::get('/galeri', function () {
         ]
     );
 });
-
 
 Route::get('/galeri', function () {
 

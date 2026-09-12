@@ -78,9 +78,9 @@ return [
     |
     */
 
-'locale' => 'id',
-'fallback_locale' => 'id',
-'faker_locale' => 'id_ID',
+    'locale' => 'id',
+    'fallback_locale' => 'id',
+    'faker_locale' => 'id_ID',
 
     /*
     |--------------------------------------------------------------------------

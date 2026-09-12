@@ -6,29 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-public function up(): void
-{
-    Schema::create('news', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('news', function (Blueprint $table) {
 
-        $table->id();
+            $table->id();
 
-        $table->string('title');
+            $table->string('title');
 
-        $table->string('slug')->unique();
+            $table->string('slug')->unique();
 
-        $table->text('excerpt')->nullable();
+            $table->text('excerpt')->nullable();
 
-        $table->longText('content');
+            $table->longText('content');
 
-        $table->string('thumbnail')->nullable();
+            $table->string('thumbnail')->nullable();
 
-        $table->boolean('is_published')
-            ->default(true);
+            $table->boolean('is_published')
+                ->default(true);
 
-        $table->timestamp('published_at')
-            ->nullable();
+            $table->timestamp('published_at')
+                ->nullable();
 
-        $table->timestamps();
-    });
-}
+            $table->timestamps();
+        });
+    }
 };

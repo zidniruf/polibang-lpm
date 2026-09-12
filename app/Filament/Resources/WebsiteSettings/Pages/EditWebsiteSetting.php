@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\WebsiteSettings\Pages;
 
+use App\Filament\Resources\WebsiteSettings\WebsiteSettingResource;
 use App\Models\WebsiteSetting;
 use Filament\Resources\Pages\EditRecord;
-use App\Filament\Resources\WebsiteSettings\WebsiteSettingResource;
 
 class EditWebsiteSetting extends EditRecord
 {

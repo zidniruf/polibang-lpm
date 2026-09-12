@@ -13,14 +13,13 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
 
 class DocumentCategoryResource extends Resource
 {
     protected static ?string $model = DocumentCategory::class;
 
     protected static string|\UnitEnum|null $navigationGroup =
-    'Dokumen';
+        'Dokumen';
 
     protected static ?string $navigationLabel =
         'Kategori Dokumen';

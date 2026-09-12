@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class PageItem extends Model
 {
-protected $fillable = [
-    'page_id',
-    'type',
-    'title',
-    'file',
-    'width',
-    'sort_order',
-];
+    protected $fillable = [
+        'page_id',
+        'type',
+        'title',
+        'file',
+        'width',
+        'sort_order',
+    ];
 
     public function page()
     {

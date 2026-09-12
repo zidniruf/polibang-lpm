@@ -21,7 +21,7 @@ class DocumentResource extends Resource
     protected static string|BackedEnum|null $navigationIcon =
         Heroicon::OutlinedDocumentText;
 
-protected static string|\UnitEnum|null $navigationGroup = 'Konten';
+    protected static string|\UnitEnum|null $navigationGroup = 'Konten';
 
     protected static ?string $navigationLabel =
         'Dokumen Mutu';

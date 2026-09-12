@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Mews\Purifier\Facades\Purifier;
 
 class News extends Model

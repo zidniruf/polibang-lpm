@@ -11,29 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-Schema::create('page_items', function (Blueprint $table) {
+        Schema::create('page_items', function (Blueprint $table) {
 
-    $table->id();
+            $table->id();
 
-    $table->foreignId('page_id')
-        ->constrained()
-        ->cascadeOnDelete();
+            $table->foreignId('page_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-    $table->enum('type', [
-        'image',
-        'document',
-    ]);
+            $table->enum('type', [
+                'image',
+                'document',
+            ]);
 
-    $table->string('title');
+            $table->string('title');
 
-    $table->string('file');
+            $table->string('file');
 
-    $table->integer('sort_order')
-        ->default(0);
+            $table->integer('sort_order')
+                ->default(0);
 
-    $table->timestamps();
+            $table->timestamps();
 
-});
+        });
     }
 
     /**

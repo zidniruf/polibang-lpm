@@ -9,24 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up(): void
-{
-    Schema::create('menu_groups', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('menu_groups', function (Blueprint $table) {
 
-        $table->id();
+            $table->id();
 
-        $table->string('name');
-        $table->string('slug')->unique();
+            $table->string('name');
+            $table->string('slug')->unique();
 
-        $table->integer('sort_order')
-            ->default(0);
+            $table->integer('sort_order')
+                ->default(0);
 
-        $table->boolean('is_active')
-            ->default(true);
+            $table->boolean('is_active')
+                ->default(true);
 
-        $table->timestamps();
-    });
-}
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

@@ -4,6 +4,8 @@ namespace App\Filament\Resources\Pages\Schemas;
 
 use App\Models\Document;
 use App\Models\DocumentCategory;
+use App\Models\Gallery;
+use App\Models\GalleryCategory;
 use App\Models\MenuGroup;
 use Filament\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
@@ -163,14 +165,14 @@ class PageForm
                             ->options(function ($get) {
 
                                 if ($get('filter_type') === 'category') {
-                                    return \App\Models\DocumentCategory::query()
+                                    return DocumentCategory::query()
                                         ->orderBy('name')
                                         ->pluck('name', 'id')
                                         ->toArray();
                                 }
 
                                 if ($get('filter_type') === 'year') {
-                                    return \App\Models\Document::query()
+                                    return Document::query()
                                         ->whereNotNull('year')
                                         ->distinct()
                                         ->orderByDesc('year')
@@ -180,16 +182,14 @@ class PageForm
 
                                 return [];
                             })
-                            ->visible(fn ($get) =>
-                                $get('filter_type') !== 'document'
+                            ->visible(fn ($get) => $get('filter_type') !== 'document'
                             ),
 
                         CheckboxList::make('documents')
                             ->relationship('documents', 'title')
                             ->columns(2)
                             ->searchable()
-                            ->visible(fn ($get) =>
-                                $get('filter_type') === 'document'
+                            ->visible(fn ($get) => $get('filter_type') === 'document'
                             ),
 
                         TextInput::make('sort_order')
@@ -231,7 +231,7 @@ class PageForm
 
                                 if ($get('filter_type') === 'category') {
 
-                                    return \App\Models\GalleryCategory::query()
+                                    return GalleryCategory::query()
                                         ->orderBy('name')
                                         ->pluck('name', 'id')
                                         ->toArray();
@@ -239,7 +239,7 @@ class PageForm
 
                                 if ($get('filter_type') === 'gallery') {
 
-                                    return \App\Models\Gallery::query()
+                                    return Gallery::query()
                                         ->orderBy('title')
                                         ->pluck('title', 'id')
                                         ->toArray();

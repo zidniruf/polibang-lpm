@@ -11,7 +11,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
 
 class WebsiteSettingResource extends Resource
 {
@@ -20,8 +19,8 @@ class WebsiteSettingResource extends Resource
     protected static ?string $navigationLabel =
         'Pengaturan Website';
 
-protected static string|\UnitEnum|null $navigationGroup =
-    'Website';
+    protected static string|\UnitEnum|null $navigationGroup =
+        'Website';
 
     protected static string|BackedEnum|null $navigationIcon =
         Heroicon::OutlinedCog6Tooth;
@@ -46,11 +45,10 @@ protected static string|\UnitEnum|null $navigationGroup =
         return false;
     }
 
-
-public static function getPages(): array
-{
-    return [
-        'index' => EditWebsiteSetting::route('/'),
-    ];
-}
+    public static function getPages(): array
+    {
+        return [
+            'index' => EditWebsiteSetting::route('/'),
+        ];
+    }
 }

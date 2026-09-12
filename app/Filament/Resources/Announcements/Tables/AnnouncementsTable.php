@@ -6,9 +6,9 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Tables\Columns\ImageColumn;
 
 class AnnouncementsTable
 {
@@ -24,10 +24,10 @@ class AnnouncementsTable
                     ->searchable()
                     ->sortable(),
 
-ImageColumn::make('image')
-    ->label('Gambar')
-    ->disk('public')
-    ->square(),
+                ImageColumn::make('image')
+                    ->label('Gambar')
+                    ->disk('public')
+                    ->square(),
 
                 TextColumn::make('published_at')
                     ->label('Tanggal Publikasi')

@@ -3,17 +3,15 @@
 namespace App\Filament\Widgets;
 
 use App\Models\News;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
-use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
 
 class LatestNews extends TableWidget
 {
+    protected static ?int $sort = 4;
 
-protected static ?int $sort = 4;
-
-protected int|string|array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected static ?string $heading = 'Berita Terbaru';
 

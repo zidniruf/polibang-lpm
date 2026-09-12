@@ -11,23 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-Schema::create('navigation_links', function (Blueprint $table) {
+        Schema::create('navigation_links', function (Blueprint $table) {
 
-    $table->id();
+            $table->id();
 
-    $table->string('title');
+            $table->string('title');
 
-    $table->string('url');
+            $table->string('url');
 
-    $table->integer('sort_order')
-        ->default(0);
+            $table->integer('sort_order')
+                ->default(0);
 
-    $table->boolean('is_active')
-        ->default(true);
+            $table->boolean('is_active')
+                ->default(true);
 
-    $table->timestamps();
+            $table->timestamps();
 
-});
+        });
     }
 
     /**

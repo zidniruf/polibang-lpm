@@ -30,8 +30,8 @@ class AnnouncementResource extends Resource
     protected static ?string $pluralModelLabel =
         'Pengumuman';
 
-protected static string|\UnitEnum|null $navigationGroup =
-    'Konten';
+    protected static string|\UnitEnum|null $navigationGroup =
+        'Konten';
 
     protected static ?int $navigationSort = 3;
 

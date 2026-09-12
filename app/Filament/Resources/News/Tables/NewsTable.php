@@ -19,10 +19,10 @@ class NewsTable
 
             ->columns([
 
-ImageColumn::make('thumbnail')
-    ->label('Gambar')
-    ->disk('public')
-    ->square(),
+                ImageColumn::make('thumbnail')
+                    ->label('Gambar')
+                    ->disk('public')
+                    ->square(),
 
                 TextColumn::make('title')
                     ->label('Judul')

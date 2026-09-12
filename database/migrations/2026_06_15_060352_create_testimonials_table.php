@@ -9,27 +9,27 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up(): void
-{
-    Schema::create('testimonials', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('testimonials', function (Blueprint $table) {
 
-        $table->id();
+            $table->id();
 
-        $table->string('name');
+            $table->string('name');
 
-        $table->string('position')->nullable();
+            $table->string('position')->nullable();
 
-        $table->string('photo')->nullable();
+            $table->string('photo')->nullable();
 
-        $table->text('content');
+            $table->text('content');
 
-        $table->tinyInteger('rating')->default(5);
+            $table->tinyInteger('rating')->default(5);
 
-        $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(true);
 
-        $table->timestamps();
-    });
-}
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

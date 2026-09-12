@@ -20,7 +20,7 @@ class SearchController extends Controller
         $query = trim((string) $request->query('q', ''));
 
         return Inertia::render('Search/Index', [
-            'query'   => $query,
+            'query' => $query,
             'results' => $this->buildResults($query, 10),
         ]);
     }
@@ -34,7 +34,7 @@ class SearchController extends Controller
         $query = trim((string) $request->query('q', ''));
 
         return response()->json([
-            'query'   => $query,
+            'query' => $query,
             'results' => $this->buildResults($query, 4),
         ]);
     }
@@ -48,18 +48,18 @@ class SearchController extends Controller
     private function buildResults(string $query, int $limit): array
     {
         $results = [
-            'news'          => [],
-            'documents'     => [],
-            'pages'         => [],
+            'news' => [],
+            'documents' => [],
+            'pages' => [],
             'announcements' => [],
-            'galleries'     => [],
+            'galleries' => [],
         ];
 
         if ($query === '') {
             return $results;
         }
 
-        $term = '%' . $query . '%';
+        $term = '%'.$query.'%';
 
         // News dicocokkan ke title ATAU content, jadi dibungkus closure
         // supaya tidak mematahkan filter is_published di sebelahnya.
@@ -67,7 +67,7 @@ class SearchController extends Controller
             ->where('is_published', true)
             ->where(function ($q) use ($term) {
                 $q->where('title', 'like', $term)
-                  ->orWhere('content', 'like', $term);
+                    ->orWhere('content', 'like', $term);
             })
             ->latest('published_at')
             ->limit($limit)

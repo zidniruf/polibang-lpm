@@ -11,30 +11,30 @@ return new class extends Migration
      */
     public function up(): void
     {
-Schema::create('page_document_blocks', function (Blueprint $table) {
+        Schema::create('page_document_blocks', function (Blueprint $table) {
 
-    $table->id();
+            $table->id();
 
-    $table->foreignId('page_id')
-        ->constrained()
-        ->cascadeOnDelete();
+            $table->foreignId('page_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-    $table->string('title');
+            $table->string('title');
 
-    $table->enum('filter_type', [
-        'category',
-        'year',
-        'document',
-    ]);
+            $table->enum('filter_type', [
+                'category',
+                'year',
+                'document',
+            ]);
 
-    $table->string('filter_value')
-        ->nullable();
+            $table->string('filter_value')
+                ->nullable();
 
-    $table->integer('sort_order')
-        ->default(0);
+            $table->integer('sort_order')
+                ->default(0);
 
-    $table->timestamps();
-});
+            $table->timestamps();
+        });
     }
 
     /**
