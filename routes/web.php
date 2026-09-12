@@ -240,4 +240,5 @@ Route::get('/galeri', function () {
     ]);
 });
 
+require __DIR__.'/sitemap.php';
 require __DIR__.'/auth.php';

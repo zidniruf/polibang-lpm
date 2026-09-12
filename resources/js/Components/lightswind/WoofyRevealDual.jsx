@@ -72,10 +72,11 @@ const WoofyRevealDual = ({
     uniform vec2  u_resolution;
     uniform float u_radius;
     uniform float u_speed;
-    uniform float u_imageAspect;
-    uniform float u_turbulence;
+uniform float u_imageAspect;
+uniform float u_turbulence;
+uniform vec2  u_imagePosition;
 
-    varying vec2 v_uv;
+varying vec2 v_uv;
 
     vec3 hash33(vec3 p) {
       p = fract(p * vec3(443.8975, 397.2973, 491.1871));
@@ -127,22 +128,33 @@ const WoofyRevealDual = ({
       return result * 0.5 + 0.5;
     }
 
-    vec2 coverUV(vec2 uv, float imgAspect) {
-      float screenAspect = u_resolution.x / u_resolution.y;
-      vec2 newUV = uv;
-      if (screenAspect > imgAspect) {
+vec2 coverUV(vec2 uv, float imgAspect) {
+    float screenAspect = u_resolution.x / u_resolution.y;
+
+    vec2 newUV = uv;
+
+    // Jika layar lebih lebar daripada gambar,
+    // gambar akan terpotong bagian atas/bawah.
+    if (screenAspect > imgAspect) {
         float scale = screenAspect / imgAspect;
-        newUV.y = (uv.y - 0.5) / scale + 0.5;
-      } else {
-        float scale = imgAspect / screenAspect;
-        if (screenAspect < 0.8) {
-          newUV.x = (uv.x - 0.5) / scale + 0.80;
-        } else {
-          newUV.x = (uv.x - 0.5) / scale + 0.5;
-        }
-      }
-      return newUV;
+
+        newUV.y =
+            (uv.y - u_imagePosition.y) / scale
+            + u_imagePosition.y;
     }
+
+    // Jika layar lebih sempit daripada gambar,
+    // gambar akan terpotong bagian kiri/kanan.
+    else {
+        float scale = imgAspect / screenAspect;
+
+        newUV.x =
+            (uv.x - u_imagePosition.x) / scale
+            + u_imagePosition.x;
+    }
+
+    return newUV;
+}
 
     void main() {
       vec2 uv = v_uv;
@@ -188,17 +200,82 @@ const WoofyRevealDual = ({
       sceneRef.current = scene;
       const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-      const uniforms = {
-        u_texFront:    { value: texFront },
-        u_texReveal:   { value: texReveal },
-        u_mouse:       { value: new THREE.Vector2(0.5, 0.5) },
-        u_time:        { value: 0.0 },
-        u_resolution:  { value: new THREE.Vector2(W, H) },
-        u_radius:      { value: 0.0 },
-        u_speed:       { value: animationSpeed },
-        u_imageAspect: { value: imageAspect },
-        u_turbulence:  { value: turbulenceIntensity },
-      };
+const parseObjectPosition = (position) => {
+    const parts = position.split(" ");
+
+    const parseX = (value) => {
+        if (!value || value === "center") return 0.5;
+        if (value === "left") return 0.0;
+        if (value === "right") return 1.0;
+
+        const number = parseFloat(value);
+
+        return Number.isNaN(number)
+            ? 0.5
+            : number / 100;
+    };
+
+    const parseY = (value) => {
+        if (!value || value === "center") return 0.5;
+        if (value === "top") return 0.0;
+        if (value === "bottom") return 1.0;
+
+        const number = parseFloat(value);
+
+        return Number.isNaN(number)
+            ? 0.5
+            : number / 100;
+    };
+
+    return new THREE.Vector2(
+        parseX(parts[0]),
+        parseY(parts[1])
+    );
+};
+
+const imagePosition = parseObjectPosition(objectPosition);
+
+const uniforms = {
+    u_texFront: {
+        value: texFront
+    },
+
+    u_texReveal: {
+        value: texReveal
+    },
+
+    u_mouse: {
+        value: new THREE.Vector2(0.5, 0.5)
+    },
+
+    u_time: {
+        value: 0.0
+    },
+
+    u_resolution: {
+        value: new THREE.Vector2(W, H)
+    },
+
+    u_radius: {
+        value: 0.0
+    },
+
+    u_speed: {
+        value: animationSpeed
+    },
+
+    u_imageAspect: {
+        value: imageAspect
+    },
+
+    u_turbulence: {
+        value: turbulenceIntensity
+    },
+
+    u_imagePosition: {
+        value: imagePosition
+    },
+};
       uniformsRef.current = uniforms;
 
       const mesh = new THREE.Mesh(
@@ -249,7 +326,14 @@ const tick = () => {
       renderer.render(scene, camera);
       tick();
     });
-  }, [srcFront, srcReveal, maskRadius, turbulenceIntensity, animationSpeed]);
+  }, [
+    srcFront,
+    srcReveal,
+    maskRadius,
+    turbulenceIntensity,
+    animationSpeed,
+    objectPosition
+]);
 
   /* ──────────────────────────── MOUSE HANDLER ────────────────────────────── */
   const handleMouseMove = useCallback((e) => {
