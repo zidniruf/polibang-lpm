@@ -24,8 +24,8 @@ export default function Home({
     return (
         <PublicLayout setting={setting}>
             <Head>
-                <title>{setting?.name || "LPM Polibang"}</title>
-                <meta name="description" content={setting?.description || "Lembaga Penjaminan Mutu Polibang"} />
+                <title>{setting?.name || "P2M Polibang"}</title>
+                <meta name="description" content={setting?.description || "Pusat Penjaminan Mutu Politeknik Balekambang"} />
             </Head>
 
             <AnnouncementPopup announcement={popupAnnouncement} />
