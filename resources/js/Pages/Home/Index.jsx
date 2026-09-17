@@ -24,7 +24,7 @@ export default function Home({
     return (
         <PublicLayout setting={setting}>
             <Head>
-                <title>{setting?.name || "P2M Polibang"}</title>
+                <title>{setting?.site_name || "P2M Polibang"}</title>
                 <meta name="description" content={setting?.description || "Pusat Penjaminan Mutu Politeknik Balekambang"} />
             </Head>
 

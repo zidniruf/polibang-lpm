@@ -156,7 +156,7 @@ export default function Navbar() {
     };
 
     const logoSrc  = setting?.logo ? `/storage/${setting.logo}` : null;
-    const siteName = setting?.site_name || "LPM Polibang";
+    const siteName = setting?.site_name || "P2M Polibang";
 
     const allNavGroups = Array.isArray(menuGroups) ? menuGroups : [];
     const allNavLinks  = Array.isArray(navigationLinks) ? navigationLinks : [];
