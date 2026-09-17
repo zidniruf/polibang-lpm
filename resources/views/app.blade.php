@@ -12,6 +12,14 @@
             {{ $setting?->site_name ?? config('app.name', 'Laravel') }}
         </title>
 
+        <meta property="og:title" content="{{ $setting?->site_name ?? config('app.name', 'Laravel') }}">
+        <meta property="og:description" content="{{ $setting?->tagline ?? 'Situs web resmi Polibang LPM' }}">
+        @if($setting?->logo)
+            <meta property="og:image" content="{{ asset('storage/' . $setting->logo) }}">
+        @endif
+        <meta property="og:url" content="{{ request()->url() }}">
+        <meta property="og:type" content="website">
+
         @if($setting?->logo)
             <link
                 rel="icon"

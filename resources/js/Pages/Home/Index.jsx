@@ -30,14 +30,13 @@ export default function Home({
 
             <AnnouncementPopup announcement={popupAnnouncement} />
 
-            <Hero setting={setting} />
+<Hero setting={setting} />
 
+<div className="relative z-10 -mt-20">
+    <QuickAccess />
+</div>
 
-            <QuickAccess />
-
-                        <AboutLPM
-    setting={setting}
-/>
+<AboutLPM setting={setting} />
 
 
 <section className="py-16 bg-slate-50">

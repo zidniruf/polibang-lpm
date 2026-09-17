@@ -1,6 +1,37 @@
+import { useEffect, useState } from "react";
 import { Head } from "@inertiajs/react";
 
 export default function Show({ announcement }) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        const raf = requestAnimationFrame(() => setMounted(true));
+        return () => cancelAnimationFrame(raf);
+    }, []);
+
+    const infoCards = [
+        {
+            icon: <CalendarIcon />,
+            label: "Tanggal Mulai",
+            value: formatDate(announcement.event_start_date),
+        },
+        {
+            icon: <CalendarIcon />,
+            label: "Tanggal Selesai",
+            value: formatDate(announcement.event_end_date),
+        },
+        {
+            icon: <PinIcon />,
+            label: "Lokasi",
+            value: announcement.location,
+        },
+        {
+            icon: <UserIcon />,
+            label: "Penyelenggara",
+            value: announcement.organizer,
+        },
+    ];
+
     return (
         <>
             <Head title={announcement.title} />
@@ -14,6 +45,7 @@ export default function Show({ announcement }) {
                     sm:min-h-[280px]
                     lg:min-h-[340px]
                     flex items-end
+                    overflow-hidden
                 "
                 style={{
                     backgroundImage: announcement.image
@@ -25,7 +57,13 @@ export default function Show({ announcement }) {
                 }}
             >
                 {/* overlay gelap supaya teks terbaca */}
-                <div className="absolute inset-0 bg-black/50" />
+                <div
+                    className={`
+                        absolute inset-0 bg-black/50
+                        transition-opacity duration-700 ease-out
+                        ${mounted ? "opacity-100" : "opacity-0"}
+                    `}
+                />
 
                 <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 pb-6 sm:pb-8 pt-16">
 
@@ -37,17 +75,37 @@ export default function Show({ announcement }) {
                                 window.location.href = "/pengumuman";
                             }
                         }}
-                        className="
+                        className={`
+                            group
                             inline-flex items-center gap-1
                             text-white/90 text-xs sm:text-sm
                             mb-3 sm:mb-4
                             hover:text-white
-                        "
+                            transition-all duration-500 ease-out
+                            ${
+                                mounted
+                                    ? "opacity-100 translate-y-0"
+                                    : "opacity-0 -translate-y-1"
+                            }
+                        `}
                     >
-                        ← Kembali
+                        <span className="transition-transform duration-200 group-hover:-translate-x-1">
+                            ←
+                        </span>
+                        Kembali
                     </button>
 
-                    <div className="text-xs sm:text-sm text-white/80 mb-1 sm:mb-2">
+                    <div
+                        className={`
+                            text-xs sm:text-sm text-white/80 mb-1 sm:mb-2
+                            transition-all duration-500 ease-out delay-100
+                            ${
+                                mounted
+                                    ? "opacity-100 translate-y-0"
+                                    : "opacity-0 translate-y-2"
+                            }
+                        `}
+                    >
                         {new Date(
                             announcement.published_at
                         ).toLocaleDateString("id-ID", {
@@ -58,11 +116,17 @@ export default function Show({ announcement }) {
                     </div>
 
                     <h1
-                        className="
+                        className={`
                             text-2xl sm:text-3xl lg:text-4xl
                             font-bold text-white
                             leading-tight
-                        "
+                            transition-all duration-700 ease-out delay-150
+                            ${
+                                mounted
+                                    ? "opacity-100 translate-y-0"
+                                    : "opacity-0 translate-y-3"
+                            }
+                        `}
                     >
                         {announcement.title}
                     </h1>
@@ -83,35 +147,31 @@ export default function Show({ announcement }) {
                     "
                 >
 
-                    <InfoCard
-                        icon={<CalendarIcon />}
-                        label="Tanggal Mulai"
-                        value={formatDate(announcement.event_start_date)}
-                    />
-
-                    <InfoCard
-                        icon={<CalendarIcon />}
-                        label="Tanggal Selesai"
-                        value={formatDate(announcement.event_end_date)}
-                    />
-
-                    <InfoCard
-                        icon={<PinIcon />}
-                        label="Lokasi"
-                        value={announcement.location}
-                    />
-
-                    <InfoCard
-                        icon={<UserIcon />}
-                        label="Penyelenggara"
-                        value={announcement.organizer}
-                    />
+                    {infoCards.map((card, index) => (
+                        <InfoCard
+                            key={card.label}
+                            icon={card.icon}
+                            label={card.label}
+                            value={card.value}
+                            mounted={mounted}
+                            delay={200 + index * 90}
+                        />
+                    ))}
 
                 </div>
 
                 {/* Isi pengumuman */}
                 <div
-                    className="prose prose-sm sm:prose-base max-w-none"
+                    className={`
+                        prose prose-sm sm:prose-base max-w-none
+                        transition-all duration-700 ease-out
+                        ${
+                            mounted
+                                ? "opacity-100 translate-y-0"
+                                : "opacity-0 translate-y-3"
+                        }
+                    `}
+                    style={{ transitionDelay: mounted ? "560ms" : "0ms" }}
                     dangerouslySetInnerHTML={{
                         __html: announcement.content,
                     }}
@@ -132,18 +192,29 @@ function formatDate(value) {
     });
 }
 
-function InfoCard({ icon, label, value }) {
+function InfoCard({ icon, label, value, mounted, delay }) {
     if (!value) return null;
 
     return (
         <div
-            className="
+            style={{ transitionDelay: mounted ? `${delay}ms` : "0ms" }}
+            className={`
                 bg-white
                 border
                 rounded-2xl
                 p-4 sm:p-6
                 text-center
-            "
+                transition-all
+                duration-500
+                ease-out
+                hover:shadow-md
+                hover:-translate-y-0.5
+                ${
+                    mounted
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-3"
+                }
+            `}
         >
             <div className="flex justify-center text-teal-600 mb-2">
                 {icon}
