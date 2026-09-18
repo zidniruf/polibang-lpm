@@ -5,9 +5,9 @@
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
-    @foreach ( as )
+    @foreach ($urls as $url)
         <url>
-            <loc>{{  }}</loc>
+            <loc>{{ $url }}</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
         </url>

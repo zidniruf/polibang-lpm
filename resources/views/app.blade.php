@@ -12,6 +12,8 @@
             {{ $setting?->site_name ?? config('app.name', 'Laravel') }}
         </title>
 
+        <meta name="description" content="{{ $setting?->tagline ?? 'Situs web resmi Polibang LPM' }}">
+        <link rel="canonical" href="{{ request()->url() }}">
         <meta property="og:title" content="{{ $setting?->site_name ?? config('app.name', 'Laravel') }}">
         <meta property="og:description" content="{{ $setting?->tagline ?? 'Situs web resmi Polibang LPM' }}">
         @if($setting?->logo)

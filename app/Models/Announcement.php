@@ -8,11 +8,19 @@ use Mews\Purifier\Facades\Purifier;
 
 class Announcement extends Model
 {
-    protected $fillable = [
-        'title',
-        'slug',
-        'content',
-    ];
+protected $fillable = [
+    'title',
+    'slug',
+    'content',
+    'image',
+    'published_at',
+    'event_start_date',
+    'event_end_date',
+    'location',
+    'organizer',
+    'is_published',
+    'show_on_home',
+];
 
     protected static function booted(): void
     {
