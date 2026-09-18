@@ -99,7 +99,7 @@ export default function Announcements({
                             width: 4px;
                             height: 0;
                             border-radius: 9999px;
-                            background: rgb(37, 99, 235);
+                            background: rgb(4, 216, 67);
                             transition: height 0.25s ease;
                         }
 
