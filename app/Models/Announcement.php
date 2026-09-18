@@ -8,6 +8,12 @@ use Mews\Purifier\Facades\Purifier;
 
 class Announcement extends Model
 {
+    protected $fillable = [
+        'title',
+        'slug',
+        'content',
+    ];
+
     protected static function booted(): void
     {
         static::saving(function (Announcement $announcement) {
@@ -20,7 +26,7 @@ class Announcement extends Model
             }
         });
 
-        // NOTE: pembuatan/pembaruan record Page otomatis akan ditambahkan
+        // NOTE: pembaruan record Page otomatis akan ditambahkan
         // di sini (event created/updated) setelah struktur Page dikonfirmasi.
     }
 }
