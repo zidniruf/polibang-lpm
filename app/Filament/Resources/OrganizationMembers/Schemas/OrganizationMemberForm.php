@@ -27,6 +27,16 @@ class OrganizationMemberForm
                     ->required()
                     ->maxLength(255),
 
+                TextInput::make('niy')
+                    ->label('NIY')
+                    ->nullable()
+                    ->maxLength(255),
+
+                TextInput::make('nidn_nuptk')
+                    ->label('NIDN/NUPTK')
+                    ->nullable()
+                    ->maxLength(255),
+
                 TextInput::make('position')
                     ->label('Jabatan')
                     ->required()

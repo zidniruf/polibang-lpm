@@ -27,6 +27,18 @@ class OrganizationMembersTable
                     ->searchable()
                     ->sortable(),
 
+                TextColumn::make('niy')
+                    ->label('NIY')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('nidn_nuptk')
+                    ->label('NIDN/NUPTK')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('position')
                     ->label('Jabatan')
                     ->searchable(),

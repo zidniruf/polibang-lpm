@@ -68,21 +68,64 @@ function Show({ page, organizationMembers = [] }) {
 								/* @__PURE__ */ jsx("table", {
 									className: "w-full",
 									children: /* @__PURE__ */ jsxs("tbody", { children: [
-										/* @__PURE__ */ jsxs("tr", { children: [/* @__PURE__ */ jsx("td", {
-											className: "font-semibold py-2 w-40",
-											children: "Nama"
-										}), /* @__PURE__ */ jsx("td", { children: member.name })] }),
-										/* @__PURE__ */ jsxs("tr", { children: [/* @__PURE__ */ jsx("td", {
-											className: "font-semibold py-2",
-											children: "Jabatan"
-										}), /* @__PURE__ */ jsx("td", { children: member.position })] }),
-										/* @__PURE__ */ jsxs("tr", { children: [/* @__PURE__ */ jsx("td", {
-											className: "font-semibold py-2",
-											children: "Email"
-										}), /* @__PURE__ */ jsx("td", { children: member.email })] })
+										/* @__PURE__ */ jsxs("tr", { children: [
+											/* @__PURE__ */ jsx("td", {
+												className: "font-semibold py-2 w-36",
+												children: "Nama"
+											}),
+											/* @__PURE__ */ jsx("td", {
+												className: "py-2 w-4",
+												children: ":"
+											}),
+											/* @__PURE__ */ jsx("td", { children: member.name })
+										] }),
+										member.niy?.trim() && /* @__PURE__ */ jsxs("tr", { children: [
+											/* @__PURE__ */ jsx("td", {
+												className: "font-semibold py-2",
+												children: "NIY"
+											}),
+											/* @__PURE__ */ jsx("td", {
+												className: "py-2",
+												children: ":"
+											}),
+											/* @__PURE__ */ jsx("td", { children: member.niy })
+										] }),
+										member.nidn_nuptk?.trim() && /* @__PURE__ */ jsxs("tr", { children: [
+											/* @__PURE__ */ jsx("td", {
+												className: "font-semibold py-2",
+												children: "NIDN/NUPTK"
+											}),
+											/* @__PURE__ */ jsx("td", {
+												className: "py-2",
+												children: ":"
+											}),
+											/* @__PURE__ */ jsx("td", { children: member.nidn_nuptk })
+										] }),
+										/* @__PURE__ */ jsxs("tr", { children: [
+											/* @__PURE__ */ jsx("td", {
+												className: "font-semibold py-2",
+												children: "Jabatan"
+											}),
+											/* @__PURE__ */ jsx("td", {
+												className: "py-2",
+												children: ":"
+											}),
+											/* @__PURE__ */ jsx("td", { children: member.position })
+										] }),
+										member.email?.trim() && /* @__PURE__ */ jsxs("tr", { children: [
+											/* @__PURE__ */ jsx("td", {
+												className: "font-semibold py-2",
+												children: "Gmail"
+											}),
+											/* @__PURE__ */ jsx("td", {
+												className: "py-2",
+												children: ":"
+											}),
+											/* @__PURE__ */ jsx("td", { children: member.email })
+										] })
 									] })
 								}),
-								member.description && /* @__PURE__ */ jsx("div", {
+								member.description?.trim() && /* @__PURE__ */ jsx("div", {
 									className: "mt-4 prose",
 									dangerouslySetInnerHTML: { __html: member.description }
 								})

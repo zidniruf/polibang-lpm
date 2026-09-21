@@ -176,36 +176,68 @@ export default function Show({
 
 <table className="w-full">
     <tbody>
+        {/* Nama - wajib */}
         <tr>
-            <td className="font-semibold py-2 w-36">Nama</td>
+            <td className="font-semibold py-2 w-36">
+                Nama
+            </td>
             <td className="py-2 w-4">:</td>
             <td>{member.name}</td>
         </tr>
+
+        {/* NIY - opsional */}
+        {member.niy?.trim() && (
+            <tr>
+                <td className="font-semibold py-2">
+                    NIY
+                </td>
+                <td className="py-2">:</td>
+                <td>{member.niy}</td>
+            </tr>
+        )}
+
+        {/* NIDN/NUPTK - opsional */}
+        {member.nidn_nuptk?.trim() && (
+            <tr>
+                <td className="font-semibold py-2">
+                    NIDN/NUPTK
+                </td>
+                <td className="py-2">:</td>
+                <td>{member.nidn_nuptk}</td>
+            </tr>
+        )}
+
+        {/* Jabatan - wajib */}
         <tr>
-            <td className="font-semibold py-2">Jabatan</td>
+            <td className="font-semibold py-2">
+                Jabatan
+            </td>
             <td className="py-2">:</td>
             <td>{member.position}</td>
         </tr>
-{member.email?.trim() && (
-    <tr>
-        <td className="font-semibold py-2">Email</td>
-        <td className="py-2">:</td>
-        <td>{member.email}</td>
-    </tr>
-)}
+
+        {/* Gmail - opsional */}
+        {member.email?.trim() && (
+            <tr>
+                <td className="font-semibold py-2">
+                    Gmail
+                </td>
+                <td className="py-2">:</td>
+                <td>{member.email}</td>
+            </tr>
+        )}
     </tbody>
 </table>
 
-                        {member.description && (
-
-                            <div
-                                className="mt-4 prose"
-                                dangerouslySetInnerHTML={{
-                                    __html: member.description,
-                                }}
-                            />
-
-                        )}
+{/* Description - opsional */}
+{member.description?.trim() && (
+    <div
+        className="mt-4 prose"
+        dangerouslySetInnerHTML={{
+            __html: member.description,
+        }}
+    />
+)}
 
                     </div>
 
