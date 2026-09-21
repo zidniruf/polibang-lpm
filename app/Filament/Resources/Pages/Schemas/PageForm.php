@@ -130,10 +130,23 @@ class PageForm
                     ->default(0)
                     ->required(),
 
-                RichEditor::make('content')
-                    ->label('Isi Halaman')
-                    ->required()
-                    ->columnSpanFull(),
+RichEditor::make('content')
+    ->label('Isi Halaman')
+    ->toolbarButtons([
+        'bold',
+        'italic',
+        'underline',
+        'h2',
+        'h3',
+        'bulletList',
+        'orderedList',
+        'blockquote',
+        'link',
+        'undo',
+        'redo',
+    ])
+    ->nullable()
+    ->columnSpanFull(),
 
                 Repeater::make('documentBlocks')
                     ->relationship()

@@ -1,25 +1,24 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import colors from 'tailwindcss/colors';
-import forms from '@tailwindcss/forms';
+import defaultTheme from "tailwindcss/defaultTheme";
+import colors from "tailwindcss/colors";
+import forms from "@tailwindcss/forms";
+import typography from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-        './resources/js/**/*.jsx',
+        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+        "./storage/framework/views/*.php",
+        "./resources/views/**/*.blade.php",
+        "./resources/js/**/*.jsx",
     ],
 
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
+
             colors: {
-                // Semua class blue-* (bg-blue-600, text-blue-700, hover:text-blue-700, dll)
-                // di seluruh komponen otomatis jadi hijau, tanpa perlu ganti nama class satu per satu.
-                // Digeser 1 tingkat lebih tua dari palet hijau bawaan Tailwind.
                 blue: {
                     50: colors.green[100],
                     100: colors.green[200],
@@ -38,6 +37,7 @@ export default {
     },
 
     plugins: [
-    require('@tailwindcss/typography'),
-],
+        forms,
+        typography,
+    ],
 };

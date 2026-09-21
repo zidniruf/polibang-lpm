@@ -90,19 +90,40 @@ export default function Show({
 
             <div className="max-w-5xl mx-auto px-4 py-16">
 
-                <div
-                    className="
-                        prose
-                        max-w-none
-                        prose-img:rounded-xl
-                        prose-img:shadow
-                        prose-img:max-w-full
-                    "
-                    dangerouslySetInnerHTML={{
-                        __html: page.content,
-                    }}
 
-                />
+{/* Isi Halaman */}
+{page.content && (
+    <div
+        className="
+            prose
+            prose-lg
+            max-w-none
+            text-gray-700
+            prose-headings:font-bold
+            prose-headings:text-gray-900
+            prose-h1:text-4xl
+            prose-h2:text-3xl
+            prose-h3:text-2xl
+            prose-p:leading-7
+            prose-blockquote:border-l-4
+            prose-blockquote:border-green-600
+            prose-blockquote:pl-4
+            prose-blockquote:italic
+            prose-ul:list-disc
+            prose-ol:list-decimal
+            prose-li:my-1
+            prose-a:text-blue-600
+            prose-a:underline
+            prose-img:rounded-xl
+            prose-img:shadow
+            prose-img:max-w-full
+        "
+        dangerouslySetInnerHTML={{
+            __html: page.content || "",
+        }}
+    />
+)}
+
 
                 {page.show_structure &&
     organizationMembers.length > 0 && (
@@ -204,6 +225,7 @@ export default function Show({
     </div>
 
 )}
+
 
 {/* Blok Dokumen */}
 

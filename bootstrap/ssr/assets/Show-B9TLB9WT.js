@@ -43,9 +43,9 @@ function Show({ page, organizationMembers = [] }) {
 		/* @__PURE__ */ jsxs("div", {
 			className: "max-w-5xl mx-auto px-4 py-16",
 			children: [
-				/* @__PURE__ */ jsx("div", {
-					className: "\r\n                        prose\r\n                        max-w-none\r\n                        prose-img:rounded-xl\r\n                        prose-img:shadow\r\n                        prose-img:max-w-full\r\n                    ",
-					dangerouslySetInnerHTML: { __html: page.content }
+				page.content && /* @__PURE__ */ jsx("div", {
+					className: "\r\n            prose\r\n            prose-lg\r\n            max-w-none\r\n            text-gray-700\r\n            prose-headings:font-bold\r\n            prose-headings:text-gray-900\r\n            prose-h1:text-4xl\r\n            prose-h2:text-3xl\r\n            prose-h3:text-2xl\r\n            prose-p:leading-7\r\n            prose-blockquote:border-l-4\r\n            prose-blockquote:border-green-600\r\n            prose-blockquote:pl-4\r\n            prose-blockquote:italic\r\n            prose-ul:list-disc\r\n            prose-ol:list-decimal\r\n            prose-li:my-1\r\n            prose-a:text-blue-600\r\n            prose-a:underline\r\n            prose-img:rounded-xl\r\n            prose-img:shadow\r\n            prose-img:max-w-full\r\n        ",
+					dangerouslySetInnerHTML: { __html: page.content || "" }
 				}),
 				page.show_structure && organizationMembers.length > 0 && /* @__PURE__ */ jsxs("div", {
 					className: "mt-16",
