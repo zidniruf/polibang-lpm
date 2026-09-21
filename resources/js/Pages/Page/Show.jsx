@@ -174,34 +174,27 @@ export default function Show({
                             {member.position}
                         </h3>
 
-                        <table className="w-full">
-
-                            <tbody>
-
-                                <tr>
-                                    <td className="font-semibold py-2 w-40">
-                                        Nama
-                                    </td>
-                                    <td>{member.name}</td>
-                                </tr>
-
-                                <tr>
-                                    <td className="font-semibold py-2">
-                                        Jabatan
-                                    </td>
-                                    <td>{member.position}</td>
-                                </tr>
-
-                                <tr>
-                                    <td className="font-semibold py-2">
-                                        Email
-                                    </td>
-                                    <td>{member.email}</td>
-                                </tr>
-
-                            </tbody>
-
-                        </table>
+<table className="w-full">
+    <tbody>
+        <tr>
+            <td className="font-semibold py-2 w-36">Nama</td>
+            <td className="py-2 w-4">:</td>
+            <td>{member.name}</td>
+        </tr>
+        <tr>
+            <td className="font-semibold py-2">Jabatan</td>
+            <td className="py-2">:</td>
+            <td>{member.position}</td>
+        </tr>
+{member.email?.trim() && (
+    <tr>
+        <td className="font-semibold py-2">Email</td>
+        <td className="py-2">:</td>
+        <td>{member.email}</td>
+    </tr>
+)}
+    </tbody>
+</table>
 
                         {member.description && (
 
