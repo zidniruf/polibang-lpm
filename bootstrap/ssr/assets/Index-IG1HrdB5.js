@@ -1,4 +1,4 @@
-import { t as PublicLayout } from "./PublicLayout-DK3PtaPs.js";
+import { t as PublicLayout } from "./PublicLayout-Cyz_5bcd.js";
 import { Link } from "@inertiajs/react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";

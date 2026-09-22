@@ -1,4 +1,4 @@
-import { t as PublicLayout } from "./PublicLayout-DK3PtaPs.js";
+import { t as PublicLayout } from "./PublicLayout-Cyz_5bcd.js";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useMemo, useRef, useState } from "react";
 //#region resources/js/Pages/Galleries/Index.jsx

@@ -1,14 +1,14 @@
-import { t as PublicLayout } from "./PublicLayout-DK3PtaPs.js";
+import { t as PublicLayout } from "./PublicLayout-Cyz_5bcd.js";
 import { jsx } from "react/jsx-runtime";
-//#region resources/js/Pages/Contact/Index.jsx
-function Kontak() {
+//#region resources/js/Pages/SPMI.jsx
+function SPMI() {
 	return /* @__PURE__ */ jsx(PublicLayout, { children: /* @__PURE__ */ jsx("div", {
 		className: "max-w-7xl mx-auto px-4 py-10",
 		children: /* @__PURE__ */ jsx("h1", {
 			className: "text-3xl font-bold",
-			children: "Hubungi Kami"
+			children: "Sistem Penjaminan Mutu Internal"
 		})
 	}) });
 }
 //#endregion
-export { Kontak as default };
+export { SPMI as default };

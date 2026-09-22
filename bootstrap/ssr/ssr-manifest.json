@@ -13,7 +13,7 @@
     "/build/assets/AuthenticatedLayout-CISi7w8m.js"
   ],
   "resources/js/Components/Footer.jsx": [
-    "/build/assets/PublicLayout-DK3PtaPs.js"
+    "/build/assets/PublicLayout-Cyz_5bcd.js"
   ],
   "resources/js/Components/InputError.jsx": [
     "/build/assets/TextInput-GsuN0-GW.js"
@@ -28,7 +28,7 @@
     "/build/assets/AuthenticatedLayout-CISi7w8m.js"
   ],
   "resources/js/Components/Navbar/Navbar.jsx": [
-    "/build/assets/PublicLayout-DK3PtaPs.js"
+    "/build/assets/PublicLayout-Cyz_5bcd.js"
   ],
   "resources/js/Components/PrimaryButton.jsx": [
     "/build/assets/PrimaryButton-C4V4SG2V.js"
@@ -40,7 +40,7 @@
     "/build/assets/DeleteUserForm-Btl6ZpPb.js"
   ],
   "resources/js/Components/SocialIcons.jsx": [
-    "/build/assets/PublicLayout-DK3PtaPs.js"
+    "/build/assets/PublicLayout-Cyz_5bcd.js"
   ],
   "resources/js/Components/TextInput.jsx": [
     "/build/assets/TextInput-GsuN0-GW.js"
@@ -55,10 +55,10 @@
     "/build/assets/GuestLayout-D6OnYoCF.js"
   ],
   "resources/js/Layouts/PublicLayout.jsx": [
-    "/build/assets/PublicLayout-DK3PtaPs.js"
+    "/build/assets/PublicLayout-Cyz_5bcd.js"
   ],
   "resources/js/Pages/Announcements/Index.jsx": [
-    "/build/assets/Index-Duui896y.js"
+    "/build/assets/Index-IG1HrdB5.js"
   ],
   "resources/js/Pages/Announcements/Show.jsx": [
     "/build/assets/Show-CEpkucIp.js"
@@ -82,16 +82,16 @@
     "/build/assets/VerifyEmail-dzxLALF4.js"
   ],
   "resources/js/Pages/Contact/Index.jsx": [
-    "/build/assets/Index-C9voVAtW.js"
+    "/build/assets/Index-BeW0cjj_.js"
   ],
   "resources/js/Pages/Dashboard.jsx": [
     "/build/assets/Dashboard-CpPlUNFZ.js"
   ],
   "resources/js/Pages/Documents/Index.jsx": [
-    "/build/assets/Index-BQKbIy0o.js"
+    "/build/assets/Index-DjRQbMoU.js"
   ],
   "resources/js/Pages/Galleries/Index.jsx": [
-    "/build/assets/Index-x_IS7G42.js"
+    "/build/assets/Index-DsP-byKD.js"
   ],
   "resources/js/Pages/Home/Components/AboutLPM.jsx": [
     "/build/assets/AboutLPM-DKF8QkJJ.js"
@@ -118,22 +118,22 @@
     "/build/assets/Testimonials-B0Zd2ItP.js"
   ],
   "resources/js/Pages/Home/Index.jsx": [
-    "/build/assets/Index-Br_pIh1J.js"
+    "/build/assets/Index-m6l2kO0n.js"
   ],
   "resources/js/Pages/News/Index.jsx": [
-    "/build/assets/Index-Cb8WDkSd.js"
+    "/build/assets/Index-BlOBxbEM.js"
   ],
   "resources/js/Pages/News/Show.jsx": [
-    "/build/assets/Show-CoDlgFKz.js"
+    "/build/assets/Show-BrB7E_NU.js"
   ],
   "resources/js/Pages/Page/Show.jsx": [
-    "/build/assets/Show-D9uysBZS.js"
+    "/build/assets/Show-Dk89NNeu.js"
   ],
   "resources/js/Pages/Profile/Edit.jsx": [
     "/build/assets/Edit-i0OefYig.js"
   ],
   "resources/js/Pages/Profile/Index.jsx": [
-    "/build/assets/Index-Bma8fGGR.js"
+    "/build/assets/Index-DEuVPi_H.js"
   ],
   "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx": [
     "/build/assets/DeleteUserForm-Btl6ZpPb.js"
@@ -145,7 +145,7 @@
     "/build/assets/UpdateProfileInformationForm-DnjdgctN.js"
   ],
   "resources/js/Pages/SPMI.jsx": [
-    "/build/assets/SPMI-COjF2sKQ.js"
+    "/build/assets/SPMI-CgGz9GON.js"
   ],
   "resources/js/Pages/Welcome.jsx": [
     "/build/assets/Welcome-CbbRvpyJ.js"

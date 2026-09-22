@@ -270,7 +270,7 @@ function Navbar() {
 													},
 													onFocus: () => setSuggestOpen(true),
 													placeholder: "Saya mencari...",
-													className: "text-sm outline-none w-52 text-gray-700 placeholder-gray-400 bg-transparent"
+													className: "text-sm w-52 text-gray-700 placeholder-gray-400 bg-transparent border-0 outline-none focus:outline-none focus:ring-0 focus:border-0"
 												}),
 												/* @__PURE__ */ jsx("button", {
 													type: "submit",
@@ -387,7 +387,7 @@ function Navbar() {
 								},
 								onFocus: () => setSuggestOpen(true),
 								placeholder: "Saya mencari...",
-								className: "flex-1 text-sm outline-none bg-transparent text-gray-700 placeholder-gray-400"
+								className: "flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent border-0 outline-none focus:outline-none focus:ring-0 focus:border-0"
 							}),
 							searchQuery && /* @__PURE__ */ jsx("button", {
 								type: "button",

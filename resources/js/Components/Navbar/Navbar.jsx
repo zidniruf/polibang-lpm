@@ -198,18 +198,18 @@ export default function Navbar() {
                                     {searchOpen ? (
                                         <form onSubmit={handleSearch}>
                                             <div className="flex items-center border border-gray-300 rounded-full px-3 py-1.5 shadow-sm">
-                                                <input
-                                                    ref={searchInputRef}
-                                                    type="text"
-                                                    value={searchQuery}
-                                                    onChange={e => {
-                                                        setSearchQuery(e.target.value);
-                                                        setSuggestOpen(true);
-                                                    }}
-                                                    onFocus={() => setSuggestOpen(true)}
-                                                    placeholder="Saya mencari..."
-                                                    className="text-sm outline-none w-52 text-gray-700 placeholder-gray-400 bg-transparent"
-                                                />
+<input
+    ref={searchInputRef}
+    type="text"
+    value={searchQuery}
+    onChange={e => {
+        setSearchQuery(e.target.value);
+        setSuggestOpen(true);
+    }}
+    onFocus={() => setSuggestOpen(true)}
+    placeholder="Saya mencari..."
+    className="text-sm w-52 text-gray-700 placeholder-gray-400 bg-transparent border-0 outline-none focus:outline-none focus:ring-0 focus:border-0"
+/>
                                                 <button type="submit" className="ml-1 text-gray-400 hover:text-blue-600 transition-colors">
                                                     <Search size={15} />
                                                 </button>
@@ -335,7 +335,7 @@ export default function Navbar() {
                                     }}
                                     onFocus={() => setSuggestOpen(true)}
                                     placeholder="Saya mencari..."
-                                    className="flex-1 text-sm outline-none bg-transparent text-gray-700 placeholder-gray-400"
+className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent border-0 outline-none focus:outline-none focus:ring-0 focus:border-0"
                                 />
                                 {searchQuery && (
                                     <button type="button" onClick={() => { setSearchQuery(""); setSuggestOpen(false); }} className="text-gray-300 hover:text-gray-500 mr-1">
