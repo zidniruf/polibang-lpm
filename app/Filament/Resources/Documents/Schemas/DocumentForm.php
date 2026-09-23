@@ -126,11 +126,21 @@ class DocumentForm
                     }),
 
                 FileUpload::make('file')
-                    ->label('File PDF')
+                    ->label('Masukkan Dokumen')
                     ->disk('public')
                     ->directory('documents')
                     ->acceptedFileTypes([
                         'application/pdf',
+                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                        'application/vnd.ms-excel',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        'application/msword',
+                        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                        'application/vnd.ms-powerpoint',
+                        'text/plain',
+                        'application/zip',
+                        'application/x-rar-compressed',
+                        'application/octet-stream',
                     ])
                     ->visible(fn ($get) => $get('type') === 'file')
                     ->required(fn ($get) => $get('type') === 'file'),
