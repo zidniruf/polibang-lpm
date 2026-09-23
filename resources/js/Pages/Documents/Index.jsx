@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Head } from "@inertiajs/react";
 import PublicLayout from "@/Layouts/PublicLayout";
+import { Download } from "lucide-react";
 
 export default function Dokumen({ documents }) {
     const containerRef = useRef(null);
@@ -150,12 +151,14 @@ export default function Dokumen({ documents }) {
                             </div>
 
                             <a
-                                href={`/storage/${doc.file}`}
+                                href={doc.type === 'link' ? doc.link : `/storage/${doc.file}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="doc-btn px-4 py-2 rounded-lg bg-blue-600 text-white"
+                                download={doc.type === 'file'}
+                                className="doc-btn p-2 rounded-lg bg-blue-600 text-white sm:px-4 sm:py-2"
                             >
-                                Download
+                                <span className="hidden sm:inline">Download</span>
+                                <Download size={20} className="sm:hidden" />
                             </a>
 
                         </div>

@@ -10,6 +10,8 @@ class Document extends Model
         'title',
         'document_category_id',
         'year',
+        'type',
+        'link',
         'file',
         'is_published',
     ];

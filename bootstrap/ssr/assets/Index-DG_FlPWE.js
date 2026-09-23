@@ -2,6 +2,7 @@ import { t as PublicLayout } from "./PublicLayout-Cyz_5bcd.js";
 import { Head } from "@inertiajs/react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
+import { Download } from "lucide-react";
 //#region resources/js/Pages/Documents/Index.jsx
 function Dokumen({ documents }) {
 	const containerRef = useRef(null);
@@ -117,12 +118,19 @@ function Dokumen({ documents }) {
 							" • ",
 							doc.year
 						]
-					})] }), /* @__PURE__ */ jsx("a", {
-						href: `/storage/${doc.file}`,
+					})] }), /* @__PURE__ */ jsxs("a", {
+						href: doc.type === "link" ? doc.link : `/storage/${doc.file}`,
 						target: "_blank",
 						rel: "noopener noreferrer",
-						className: "doc-btn px-4 py-2 rounded-lg bg-blue-600 text-white",
-						children: "Download"
+						download: doc.type === "file",
+						className: "doc-btn p-2 rounded-lg bg-blue-600 text-white sm:px-4 sm:py-2",
+						children: [/* @__PURE__ */ jsx("span", {
+							className: "hidden sm:inline",
+							children: "Download"
+						}), /* @__PURE__ */ jsx(Download, {
+							size: 20,
+							className: "sm:hidden"
+						})]
 					})]
 				}, doc.id))
 			})]

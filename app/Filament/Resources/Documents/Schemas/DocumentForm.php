@@ -6,6 +6,7 @@ use App\Models\DocumentCategory;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -108,6 +109,22 @@ class DocumentForm
                     ->minValue(2000)
                     ->maxValue(date('Y') + 1),
 
+                Radio::make('type')
+                    ->label('Tipe Dokumen')
+                    ->options([
+                        'file' => 'Upload File',
+                        'link' => 'Link Eksternal',
+                    ])
+                    ->default('file')
+                    ->live()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        if ($state === 'file') {
+                            $set('link', null);
+                        } else {
+                            $set('file', null);
+                        }
+                    }),
+
                 FileUpload::make('file')
                     ->label('File PDF')
                     ->disk('public')
@@ -115,7 +132,15 @@ class DocumentForm
                     ->acceptedFileTypes([
                         'application/pdf',
                     ])
-                    ->required(),
+                    ->visible(fn ($get) => $get('type') === 'file')
+                    ->required(fn ($get) => $get('type') === 'file'),
+
+                TextInput::make('link')
+                    ->label('Link Dokumen')
+                    ->url()
+                    ->placeholder('https://...')
+                    ->visible(fn ($get) => $get('type') === 'link')
+                    ->required(fn ($get) => $get('type') === 'link'),
 
                 Toggle::make('is_published')
                     ->label('Publikasikan')

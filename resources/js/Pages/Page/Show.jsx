@@ -1,5 +1,6 @@
 import { Head, Link } from "@inertiajs/react";
 import PublicLayout from "@/Layouts/PublicLayout";
+import { Download } from "lucide-react";
 
 export default function Show({
     page,
@@ -264,94 +265,56 @@ export default function Show({
 
                 <div
                     className="
-                        inline-block
-                        bg-green-600
-                        text-white
+                        text-2xl
                         font-bold
-                        px-6
-                        py-3
-                        rounded
                         mb-6
                     "
                 >
                     {block.title}
                 </div>
 
-                {/* Versi mobile: kartu */}
-                <div className="space-y-3 sm:hidden">
-
-                    {block.documents?.map((doc, index) => (
-
-                        <div
-                            key={doc.id}
-                            className="
-                                border
-                                rounded-xl
-                                p-4
-                            "
-                        >
-                            <div
-                                className="
-                                    flex
-                                    items-start
-                                    gap-3
-                                    mb-3
-                                "
-                            >
-                                <span
-                                    className="
-                                        shrink-0
-                                        w-7
-                                        h-7
-                                        flex
-                                        items-center
-                                        justify-center
-                                        rounded-full
-                                        bg-gray-100
-                                        text-sm
-                                        font-semibold
-                                    "
-                                >
-                                    {index + 1}
-                                </span>
-
-                                <a
-                                    href={`/storage/${doc.file}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="
-                                        text-blue-700
-                                        font-medium
-                                        leading-snug
-                                        break-words
-                                    "
-                                >
-                                    {doc.title}
-                                </a>
-                            </div>
-
-                            <a
-                                href={`/storage/${doc.file}`}
-                                download
-                                className="
-                                    block
-                                    w-full
-                                    text-center
-                                    bg-green-600
-                                    text-white
-                                    px-4
-                                    py-2
-                                    rounded
-                                    text-sm
-                                    hover:bg-green-700
-                                "
-                            >
-                                UNDUH DOKUMEN
-                            </a>
-                        </div>
-
-                    ))}
-
+                {/* Versi mobile: tabel */}
+                <div className="block sm:hidden overflow-x-auto">
+                    <table className="w-full border-collapse">
+                        <thead>
+                            <tr className="border-b text-[10px] text-gray-500 uppercase tracking-wider">
+                                <th className="text-left py-2 w-8">No</th>
+                                <th className="text-left py-2">Nama Dokumen</th>
+                                <th className="text-center py-2 w-10">Unduh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {block.documents?.map((doc, index) => (
+                                <tr key={doc.id} className="border-b">
+                                    <td className="py-3 text-xs text-gray-400 font-medium">
+                                        {index + 1}
+                                    </td>
+                                    <td className="py-3">
+                                        <a
+                                            href={doc.type === 'link' ? doc.link : `/storage/${doc.file}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-700 text-sm font-medium leading-tight break-words"
+                                        >
+                                            {doc.title}
+                                        </a>
+                                    </td>
+                                    <td className="py-3 text-center">
+                                        <a
+                                            href={doc.type === 'link' ? doc.link : `/storage/${doc.file}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            download={doc.type === 'file'}
+                                            className="inline-flex items-center justify-center bg-blue-600 text-white w-8 h-8 rounded-lg hover:bg-blue-700 transition-colors"
+                                            title="UNDUH DOKUMEN"
+                                        >
+                                            <Download size={16} />
+                                        </a>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
 
                 {/* Versi desktop: tabel */}
@@ -395,7 +358,7 @@ export default function Show({
                                     <td className="py-4">
 
                                         <a
-                                            href={`/storage/${doc.file}`}
+                                            href={doc.type === 'link' ? doc.link : `/storage/${doc.file}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="
@@ -411,16 +374,18 @@ export default function Show({
                                     <td className="py-4">
 
                                         <a
-                                            href={`/storage/${doc.file}`}
-                                            download
+                                            href={doc.type === 'link' ? doc.link : `/storage/${doc.file}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            download={doc.type === 'file'}
                                             className="
                                                 inline-block
-                                                bg-green-600
+                                                bg-blue-600
                                                 text-white
                                                 px-5
                                                 py-2
-                                                rounded
-                                                hover:bg-green-700
+                                                rounded-lg
+                                                hover:bg-blue-700
                                             "
                                         >
                                             UNDUH DOKUMEN

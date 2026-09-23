@@ -1,6 +1,7 @@
 import { t as PublicLayout } from "./PublicLayout-Cyz_5bcd.js";
 import { Head, Link } from "@inertiajs/react";
 import { jsx, jsxs } from "react/jsx-runtime";
+import { Download } from "lucide-react";
 //#region resources/js/Pages/Page/Show.jsx
 function Show({ page, organizationMembers = [] }) {
 	return /* @__PURE__ */ jsxs(PublicLayout, { children: [
@@ -137,32 +138,61 @@ function Show({ page, organizationMembers = [] }) {
 					className: "mt-16 space-y-12",
 					children: page.document_blocks.map((block) => /* @__PURE__ */ jsxs("div", { children: [
 						/* @__PURE__ */ jsx("div", {
-							className: "\r\n                        inline-block\r\n                        bg-green-600\r\n                        text-white\r\n                        font-bold\r\n                        px-6\r\n                        py-3\r\n                        rounded\r\n                        mb-6\r\n                    ",
+							className: "\r\n                        text-2xl\r\n                        font-bold\r\n                        mb-6\r\n                    ",
 							children: block.title
 						}),
 						/* @__PURE__ */ jsx("div", {
-							className: "space-y-3 sm:hidden",
-							children: block.documents?.map((doc, index) => /* @__PURE__ */ jsxs("div", {
-								className: "\r\n                                border\r\n                                rounded-xl\r\n                                p-4\r\n                            ",
-								children: [/* @__PURE__ */ jsxs("div", {
-									className: "\r\n                                    flex\r\n                                    items-start\r\n                                    gap-3\r\n                                    mb-3\r\n                                ",
-									children: [/* @__PURE__ */ jsx("span", {
-										className: "\r\n                                        shrink-0\r\n                                        w-7\r\n                                        h-7\r\n                                        flex\r\n                                        items-center\r\n                                        justify-center\r\n                                        rounded-full\r\n                                        bg-gray-100\r\n                                        text-sm\r\n                                        font-semibold\r\n                                    ",
-										children: index + 1
-									}), /* @__PURE__ */ jsx("a", {
-										href: `/storage/${doc.file}`,
-										target: "_blank",
-										rel: "noopener noreferrer",
-										className: "\r\n                                        text-blue-700\r\n                                        font-medium\r\n                                        leading-snug\r\n                                        break-words\r\n                                    ",
-										children: doc.title
-									})]
-								}), /* @__PURE__ */ jsx("a", {
-									href: `/storage/${doc.file}`,
-									download: true,
-									className: "\r\n                                    block\r\n                                    w-full\r\n                                    text-center\r\n                                    bg-green-600\r\n                                    text-white\r\n                                    px-4\r\n                                    py-2\r\n                                    rounded\r\n                                    text-sm\r\n                                    hover:bg-green-700\r\n                                ",
-									children: "UNDUH DOKUMEN"
-								})]
-							}, doc.id))
+							className: "block sm:hidden overflow-x-auto",
+							children: /* @__PURE__ */ jsxs("table", {
+								className: "w-full border-collapse",
+								children: [/* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", {
+									className: "border-b text-[10px] text-gray-500 uppercase tracking-wider",
+									children: [
+										/* @__PURE__ */ jsx("th", {
+											className: "text-left py-2 w-8",
+											children: "No"
+										}),
+										/* @__PURE__ */ jsx("th", {
+											className: "text-left py-2",
+											children: "Nama Dokumen"
+										}),
+										/* @__PURE__ */ jsx("th", {
+											className: "text-center py-2 w-10",
+											children: "Unduh"
+										})
+									]
+								}) }), /* @__PURE__ */ jsx("tbody", { children: block.documents?.map((doc, index) => /* @__PURE__ */ jsxs("tr", {
+									className: "border-b",
+									children: [
+										/* @__PURE__ */ jsx("td", {
+											className: "py-3 text-xs text-gray-400 font-medium",
+											children: index + 1
+										}),
+										/* @__PURE__ */ jsx("td", {
+											className: "py-3",
+											children: /* @__PURE__ */ jsx("a", {
+												href: doc.type === "link" ? doc.link : `/storage/${doc.file}`,
+												target: "_blank",
+												rel: "noopener noreferrer",
+												className: "text-blue-700 text-sm font-medium leading-tight break-words",
+												children: doc.title
+											})
+										}),
+										/* @__PURE__ */ jsx("td", {
+											className: "py-3 text-center",
+											children: /* @__PURE__ */ jsx("a", {
+												href: doc.type === "link" ? doc.link : `/storage/${doc.file}`,
+												target: "_blank",
+												rel: "noopener noreferrer",
+												download: doc.type === "file",
+												className: "inline-flex items-center justify-center bg-blue-600 text-white w-8 h-8 rounded-lg hover:bg-blue-700 transition-colors",
+												title: "UNDUH DOKUMEN",
+												children: /* @__PURE__ */ jsx(Download, { size: 16 })
+											})
+										})
+									]
+								}, doc.id)) })]
+							})
 						}),
 						/* @__PURE__ */ jsx("div", {
 							className: "hidden sm:block overflow-x-auto",
@@ -194,7 +224,7 @@ function Show({ page, organizationMembers = [] }) {
 										/* @__PURE__ */ jsx("td", {
 											className: "py-4",
 											children: /* @__PURE__ */ jsx("a", {
-												href: `/storage/${doc.file}`,
+												href: doc.type === "link" ? doc.link : `/storage/${doc.file}`,
 												target: "_blank",
 												rel: "noopener noreferrer",
 												className: "\r\n                                                text-blue-700\r\n                                                hover:underline\r\n                                            ",
@@ -204,9 +234,11 @@ function Show({ page, organizationMembers = [] }) {
 										/* @__PURE__ */ jsx("td", {
 											className: "py-4",
 											children: /* @__PURE__ */ jsx("a", {
-												href: `/storage/${doc.file}`,
-												download: true,
-												className: "\r\n                                                inline-block\r\n                                                bg-green-600\r\n                                                text-white\r\n                                                px-5\r\n                                                py-2\r\n                                                rounded\r\n                                                hover:bg-green-700\r\n                                            ",
+												href: doc.type === "link" ? doc.link : `/storage/${doc.file}`,
+												target: "_blank",
+												rel: "noopener noreferrer",
+												download: doc.type === "file",
+												className: "\r\n                                                inline-block\r\n                                                bg-blue-600\r\n                                                text-white\r\n                                                px-5\r\n                                                py-2\r\n                                                rounded-lg\r\n                                                hover:bg-blue-700\r\n                                            ",
 												children: "UNDUH DOKUMEN"
 											})
 										})
