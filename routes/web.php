@@ -171,9 +171,52 @@ Route::get('/berita/{slug}', function ($slug) {
         ->take(3)
         ->get();
 
+    /*
+    |--------------------------------------------------------------------------
+    | URL halaman berita
+    |--------------------------------------------------------------------------
+    */
+    $url = url('/berita/' . $news->slug);
+
+    /*
+    |--------------------------------------------------------------------------
+    | URL thumbnail berita
+    |--------------------------------------------------------------------------
+    */
+    $image = $news->thumbnail
+        ? asset('storage/' . $news->thumbnail)
+        : null;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Deskripsi berita
+    |--------------------------------------------------------------------------
+    */
+    $description = strip_tags($news->content ?? '');
+
+    $description = html_entity_decode($description);
+
+    $description = preg_replace('/\s+/', ' ', $description);
+
+    $description = trim($description);
+
+    $description = mb_substr($description, 0, 160);
+
     return Inertia::render('News/Show', [
         'news' => $news,
         'relatedNews' => $relatedNews,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Data untuk Share / Open Graph
+        |--------------------------------------------------------------------------
+        */
+        'share' => [
+            'url' => $url,
+            'image' => $image,
+            'title' => $news->title,
+            'description' => $description,
+        ],
     ]);
 });
 

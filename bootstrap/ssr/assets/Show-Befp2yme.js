@@ -3,16 +3,20 @@ import { Head } from "@inertiajs/react";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 //#region resources/js/Pages/News/Show.jsx
+function getPlainText(html = "") {
+	return html.replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ").replace(/&amp;/gi, "&").replace(/&quot;/gi, "\"").replace(/&#39;/gi, "'").replace(/\s+/g, " ").trim();
+}
 function ShareButton({ title }) {
 	const [open, setOpen] = useState(false);
 	const [copied, setCopied] = useState(false);
 	const [url, setUrl] = useState("");
 	useEffect(() => {
-		setUrl(window.location.href);
+		if (typeof window !== "undefined") setUrl(window.location.href);
 	}, []);
 	const encodedUrl = encodeURIComponent(url);
 	const encodedTitle = encodeURIComponent(title);
 	const copyLink = async () => {
+		if (!url) return;
 		try {
 			await navigator.clipboard.writeText(url);
 		} catch {
@@ -24,11 +28,13 @@ function ShareButton({ title }) {
 			document.body.removeChild(input);
 		}
 		setCopied(true);
-		setTimeout(() => setCopied(false), 2e3);
+		setTimeout(() => {
+			setCopied(false);
+		}, 2e3);
 	};
 	const shareInstagram = async () => {
 		await copyLink();
-		window.open("https://www.instagram.com/", "_blank", "noopener");
+		window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
 	};
 	const items = [
 		{
@@ -36,8 +42,7 @@ function ShareButton({ title }) {
 			href: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
 			bg: "bg-[#25D366]",
 			icon: /* @__PURE__ */ jsx("path", { d: "M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88zM20.52 3.45A11.8 11.8 0 0 0 12.04 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.16-3.42-8.46z" }),
-			fill: "white",
-			external: true
+			fill: "white"
 		},
 		{
 			name: "Instagram",
@@ -58,36 +63,33 @@ function ShareButton({ title }) {
 			href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
 			bg: "bg-[#1877F2]",
 			icon: /* @__PURE__ */ jsx("path", { d: "M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z" }),
-			fill: "white",
-			external: true
+			fill: "white"
 		},
 		{
 			name: "X",
 			href: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
 			bg: "bg-black",
 			icon: /* @__PURE__ */ jsx("path", { d: "M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64z" }),
-			fill: "white",
-			external: true
+			fill: "white"
 		},
 		{
 			name: "Telegram",
 			href: `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`,
 			bg: "bg-[#229ED9]",
 			icon: /* @__PURE__ */ jsx("path", { d: "M11.94 0A12 12 0 1 0 24 12 12 12 0 0 0 11.94 0zm5.22 8.2-1.77 8.35c-.13.59-.48.73-.97.45l-2.7-1.99-1.3 1.25c-.14.14-.27.27-.55.27l.2-2.75 5-4.52c.22-.19-.05-.3-.34-.11l-6.18 3.89-2.66-.83c-.58-.18-.59-.58.12-.86l10.4-4c.48-.18.9.11.75.85z" }),
-			fill: "white",
-			external: true
+			fill: "white"
 		}
 	];
-	const iconClass = "flex h-9 w-9 items-center justify-center rounded-full shadow transition hover:scale-110";
+	const iconClass = "flex h-8 w-8 md:h-9 md:w-9 items-center justify-center rounded-full shadow transition hover:scale-110";
 	return /* @__PURE__ */ jsxs("div", {
-		className: "absolute bottom-4 right-4 z-10 flex flex-col items-center",
+		className: "absolute bottom-3 right-3 md:bottom-4 md:right-4 z-10 flex flex-col items-center",
 		children: [
 			/* @__PURE__ */ jsx("div", {
-				className: `mb-3 flex flex-col items-center gap-3 rounded-full bg-white p-2 shadow-xl transition-all duration-300 origin-bottom ${open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0 h-0 p-0 mb-0 overflow-hidden"}`,
+				className: `mb-2 md:mb-3 flex flex-col items-center gap-2 md:gap-3 rounded-full bg-white p-1.5 md:p-2 shadow-xl transition-all duration-300 origin-bottom ${open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0 h-0 p-0 mb-0 overflow-hidden"}`,
 				children: items.map((item) => {
 					const svg = /* @__PURE__ */ jsx("svg", {
 						viewBox: "0 0 24 24",
-						className: "h-5 w-5",
+						className: "h-4 w-4 md:h-5 md:w-5",
 						fill: item.fill || "none",
 						stroke: item.stroke || "none",
 						strokeWidth: item.stroke ? 2 : 0,
@@ -95,7 +97,7 @@ function ShareButton({ title }) {
 						strokeLinejoin: "round",
 						children: item.icon
 					});
-					return item.href ? /* @__PURE__ */ jsx("a", {
+					if (item.href) return /* @__PURE__ */ jsx("a", {
 						href: item.href,
 						target: "_blank",
 						rel: "noopener noreferrer",
@@ -103,7 +105,8 @@ function ShareButton({ title }) {
 						"aria-label": `Bagikan ke ${item.name}`,
 						className: `${iconClass} ${item.bg}`,
 						children: svg
-					}, item.name) : /* @__PURE__ */ jsx("button", {
+					}, item.name);
+					return /* @__PURE__ */ jsx("button", {
 						type: "button",
 						onClick: item.onClick,
 						title: item.name,
@@ -115,10 +118,10 @@ function ShareButton({ title }) {
 			}),
 			/* @__PURE__ */ jsx("button", {
 				type: "button",
-				onClick: () => setOpen((v) => !v),
+				onClick: () => setOpen((value) => !value),
 				"aria-label": "Bagikan",
 				"aria-expanded": open,
-				className: "flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray shadow-lg transition hover:scale-105 hover:bg-gray-100",
+				className: "flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-gray-100 text-gray shadow-lg transition hover:scale-105 hover:bg-gray-200",
 				children: open ? /* @__PURE__ */ jsx("svg", {
 					viewBox: "0 0 24 24",
 					className: "h-5 w-5",
@@ -129,7 +132,7 @@ function ShareButton({ title }) {
 					children: /* @__PURE__ */ jsx("path", { d: "M6 6l12 12M18 6L6 18" })
 				}) : /* @__PURE__ */ jsxs("svg", {
 					viewBox: "0 0 24 24",
-					className: "h-6 w-6",
+					className: "h-5 w-5 md:h-6 md:w-6",
 					fill: "none",
 					stroke: "currentColor",
 					strokeWidth: "2",
@@ -156,39 +159,76 @@ function ShareButton({ title }) {
 				})
 			}),
 			copied && /* @__PURE__ */ jsx("span", {
-				className: "absolute -left-24 bottom-16 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-xs text-white",
+				className: "absolute -left-24 bottom-14 md:bottom-16 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-xs text-white",
 				children: "Link tersalin!"
 			})
 		]
 	});
 }
-function Show({ news }) {
+function Show({ news, share }) {
+	const description = share?.description || getPlainText(news.content || "").substring(0, 160) || news.title;
+	const imageUrl = share?.image || (news.thumbnail && typeof window !== "undefined" ? `${window.location.origin}/storage/${news.thumbnail}` : null);
+	const pageUrl = share?.url || (typeof window !== "undefined" ? window.location.href : "");
 	return /* @__PURE__ */ jsxs(PublicLayout, { children: [/* @__PURE__ */ jsxs(Head, {
 		title: news.title,
 		children: [
 			/* @__PURE__ */ jsx("meta", {
+				name: "description",
+				content: description
+			}),
+			/* @__PURE__ */ jsx("meta", {
+				"head-key": "og:title",
 				property: "og:title",
 				content: news.title
 			}),
 			/* @__PURE__ */ jsx("meta", {
+				"head-key": "og:description",
 				property: "og:description",
-				content: news.content.replace(/<[^>]*>/g, "").substring(0, 160) + "..."
+				content: description
 			}),
 			/* @__PURE__ */ jsx("meta", {
-				property: "og:image",
-				content: `${window.location.origin}/storage/${news.thumbnail}`
-			}),
-			/* @__PURE__ */ jsx("meta", {
+				"head-key": "og:url",
 				property: "og:url",
-				content: window.location.href
+				content: pageUrl
 			}),
 			/* @__PURE__ */ jsx("meta", {
+				"head-key": "og:type",
 				property: "og:type",
 				content: "article"
 			}),
 			/* @__PURE__ */ jsx("meta", {
+				"head-key": "og:site_name",
+				property: "og:site_name",
+				content: "P2M Polibang"
+			}),
+			imageUrl && /* @__PURE__ */ jsxs(Fragment, { children: [
+				/* @__PURE__ */ jsx("meta", {
+					"head-key": "og:image",
+					property: "og:image",
+					content: imageUrl
+				}),
+				/* @__PURE__ */ jsx("meta", {
+					"head-key": "og:image:alt",
+					property: "og:image:alt",
+					content: news.title
+				}),
+				/* @__PURE__ */ jsx("meta", { content: "image/jpeg" })
+			] }),
+			/* @__PURE__ */ jsx("meta", {
 				name: "twitter:card",
 				content: "summary_large_image"
+			}),
+			/* @__PURE__ */ jsx("meta", {
+				name: "twitter:title",
+				content: news.title
+			}),
+			/* @__PURE__ */ jsx("meta", {
+				name: "twitter:description",
+				content: description
+			}),
+			imageUrl && /* @__PURE__ */ jsx("meta", {
+				name: "twitter:image",
+				content: imageUrl
 			})
 		]
 	}), /* @__PURE__ */ jsxs("article", {

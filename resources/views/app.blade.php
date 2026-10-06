@@ -12,16 +12,16 @@
             {{ $setting?->site_name ?? config('app.name', 'Laravel') }}
         </title>
 
-        <meta name="description" content="{{ $setting?->tagline ?? 'Situs web resmi Polibang LPM' }}">
-        <link rel="canonical" href="{{ request()->url() }}">
-        <meta property="og:title" content="{{ $setting?->site_name ?? config('app.name', 'Laravel') }}">
-        <meta property="og:description" content="{{ $setting?->tagline ?? 'Situs web resmi Polibang LPM' }}">
-        @if($setting?->logo)
-            <meta property="og:image" content="{{ asset('storage/' . $setting->logo) }}">
-        @endif
-        <meta property="og:url" content="{{ request()->url() }}">
-        <meta property="og:type" content="website">
+        {{-- Default description website --}}
+        <meta
+            name="description"
+            content="{{ $setting?->tagline ?? 'Situs web resmi Polibang LPM' }}"
+        >
 
+        {{-- Canonical URL --}}
+        <link rel="canonical" href="{{ request()->url() }}">
+
+        {{-- Favicon --}}
         @if($setting?->logo)
             <link
                 rel="icon"
@@ -39,11 +39,15 @@
 
         <!-- Scripts -->
         @routes
+
         @viteReactRefresh
+
         @vite([
             'resources/js/app.jsx',
             "resources/js/Pages/{$page['component']}.jsx"
         ])
+
+        {{-- Inertia SEO / Open Graph / Twitter metadata --}}
         @inertiaHead
     </head>
 
