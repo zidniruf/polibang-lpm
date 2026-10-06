@@ -111,6 +111,13 @@ export default function Index({
                                                         duration-300
                                                         group-hover:scale-105
                                                     "
+                                                    style={{
+                                                        objectPosition:
+                                                            item.image_focus_x !==
+                                                            undefined
+                                                                ? `${item.image_focus_x}% ${item.image_focus_y}%`
+                                                                : "center",
+                                                    }}
                                                 />
 
                                             ) : (

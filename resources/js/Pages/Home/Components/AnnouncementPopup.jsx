@@ -62,6 +62,12 @@ export default function AnnouncementPopup({ announcement = null }) {
                         src={`/storage/${announcement.image}`}
                         alt={announcement.title}
                         className="w-full h-40 object-cover rounded-xl mb-4"
+                        style={{
+                            objectPosition:
+                                announcement.image_focus_x !== undefined
+                                    ? `${announcement.image_focus_x}% ${announcement.image_focus_y}%`
+                                    : "center",
+                        }}
                     />
                 )}
 

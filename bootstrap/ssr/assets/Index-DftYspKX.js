@@ -69,7 +69,8 @@ function Index({ announcements }) {
 								children: item.image ? /* @__PURE__ */ jsx("img", {
 									src: `/storage/${item.image}`,
 									alt: item.title,
-									className: "\r\n                                                        h-full\r\n                                                        w-full\r\n                                                        object-cover\r\n                                                        transition\r\n                                                        duration-300\r\n                                                        group-hover:scale-105\r\n                                                    "
+									className: "\r\n                                                        h-full\r\n                                                        w-full\r\n                                                        object-cover\r\n                                                        transition\r\n                                                        duration-300\r\n                                                        group-hover:scale-105\r\n                                                    ",
+									style: { objectPosition: item.image_focus_x !== void 0 ? `${item.image_focus_x}% ${item.image_focus_y}%` : "center" }
 								}) : /* @__PURE__ */ jsx("div", {
 									className: "\r\n                                                        h-full w-full\r\n                                                        flex items-center justify-center\r\n                                                        text-slate-300\r\n                                                    ",
 									children: /* @__PURE__ */ jsx(MegaphoneIcon, {})

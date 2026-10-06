@@ -1,6 +1,6 @@
 import { t as PublicLayout } from "./PublicLayout-Cyz_5bcd.js";
 import AboutLPM from "./AboutLPM-DKF8QkJJ.js";
-import AnnouncementPopup from "./AnnouncementPopup-WjiZFPLn.js";
+import AnnouncementPopup from "./AnnouncementPopup-BpjLY4ic.js";
 import Announcements from "./Announcements-C-E0SGYL.js";
 import Hero from "./Hero-BMm7_pw_.js";
 import LatestNews from "./LatestNews-BkMLWcI2.js";

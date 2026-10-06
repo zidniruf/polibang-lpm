@@ -38,7 +38,7 @@ function Show({ announcement }) {
 				backgroundImage: announcement.image ? `url(/storage/${announcement.image})` : void 0,
 				backgroundColor: "#0f172a",
 				backgroundSize: "cover",
-				backgroundPosition: "center"
+				backgroundPosition: announcement.image_focus_x !== void 0 ? `${announcement.image_focus_x}% ${announcement.image_focus_y}%` : "center"
 			},
 			children: [/* @__PURE__ */ jsx("div", { className: `
                         absolute inset-0 bg-black/50

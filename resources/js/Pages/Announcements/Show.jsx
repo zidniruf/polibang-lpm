@@ -53,7 +53,9 @@ export default function Show({ announcement }) {
                         : undefined,
                     backgroundColor: "#0f172a",
                     backgroundSize: "cover",
-                    backgroundPosition: "center",
+                    backgroundPosition: announcement.image_focus_x !== undefined
+                        ? `${announcement.image_focus_x}% ${announcement.image_focus_y}%`
+                        : "center",
                 }}
             >
                 {/* overlay gelap supaya teks terbaca */}

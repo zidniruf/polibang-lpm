@@ -30,7 +30,8 @@ function AnnouncementPopup({ announcement = null }) {
 				announcement.image && /* @__PURE__ */ jsx("img", {
 					src: `/storage/${announcement.image}`,
 					alt: announcement.title,
-					className: "w-full h-40 object-cover rounded-xl mb-4"
+					className: "w-full h-40 object-cover rounded-xl mb-4",
+					style: { objectPosition: announcement.image_focus_x !== void 0 ? `${announcement.image_focus_x}% ${announcement.image_focus_y}%` : "center" }
 				}),
 				/* @__PURE__ */ jsx("div", {
 					className: "text-xs text-gray-500 mb-1",
