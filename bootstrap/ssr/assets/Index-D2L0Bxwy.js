@@ -4,12 +4,12 @@ import AnnouncementPopup from "./AnnouncementPopup-BpjLY4ic.js";
 import Announcements from "./Announcements-C-E0SGYL.js";
 import Hero from "./Hero-BMm7_pw_.js";
 import LatestNews from "./LatestNews-BkMLWcI2.js";
-import QuickAccess from "./QuickAccess-BMcxZidV.js";
+import QuickAccess from "./QuickAccess-NBMAReg6.js";
 import Testimonials from "./Testimonials-B0Zd2ItP.js";
 import { Head } from "@inertiajs/react";
 import { jsx, jsxs } from "react/jsx-runtime";
 //#region resources/js/Pages/Home/Index.jsx
-function Home({ news, setting, stats, announcements, popupAnnouncement, testimonials, documentCategories, documents }) {
+function Home({ news, setting, stats, announcements, popupAnnouncement, testimonials, documentCategories, documents, quickAccessItems }) {
 	return /* @__PURE__ */ jsxs(PublicLayout, {
 		setting,
 		children: [
@@ -21,7 +21,7 @@ function Home({ news, setting, stats, announcements, popupAnnouncement, testimon
 			/* @__PURE__ */ jsx(Hero, { setting }),
 			/* @__PURE__ */ jsx("div", {
 				className: "relative z-10 -mt-20",
-				children: /* @__PURE__ */ jsx(QuickAccess, {})
+				children: /* @__PURE__ */ jsx(QuickAccess, { items: quickAccessItems })
 			}),
 			/* @__PURE__ */ jsx(AboutLPM, { setting }),
 			/* @__PURE__ */ jsx("section", {

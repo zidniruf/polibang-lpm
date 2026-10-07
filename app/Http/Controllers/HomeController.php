@@ -6,6 +6,7 @@ use App\Models\Announcement;
 use App\Models\Document;
 use App\Models\Gallery;
 use App\Models\News;
+use App\Models\QuickAccessItem;
 use App\Models\Testimonial;
 use App\Models\WebsiteSetting;
 use Inertia\Inertia;
@@ -17,6 +18,11 @@ class HomeController extends Controller
         return Inertia::render('Home/Index', [
 
             'setting' => WebsiteSetting::first(),
+
+            'quickAccessItems' => QuickAccessItem::query()
+                ->where('display_on_frontend', true)
+                ->orderBy('order')
+                ->get(),
 
             'news' => News::query()
                 ->where('is_published', true)

@@ -19,6 +19,7 @@ export default function Home({
     testimonials,
     documentCategories,
     documents,
+    quickAccessItems,
 }) {
 
     return (
@@ -33,7 +34,7 @@ export default function Home({
 <Hero setting={setting} />
 
 <div className="relative z-10 -mt-20">
-    <QuickAccess />
+    <QuickAccess items={quickAccessItems} />
 </div>
 
 <AboutLPM setting={setting} />

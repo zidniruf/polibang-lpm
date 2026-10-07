@@ -15,7 +15,7 @@
         {{-- Default description website --}}
         <meta
             name="description"
-            content="{{ $setting?->tagline ?? 'Situs web resmi Polibang LPM' }}"
+            content="{{ $setting?->tagline ?? 'Situs web resmi Pusat Penjamin Mutu Politeknik Balekambang Jepara' }}"
         >
 
         {{-- Canonical URL --}}
