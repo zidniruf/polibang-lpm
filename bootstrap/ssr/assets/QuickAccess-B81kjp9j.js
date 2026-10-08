@@ -101,9 +101,9 @@ function QuickAccess({ items = [] }) {
                         }
                     ` } }), /* @__PURE__ */ jsx("section", {
 		ref: sectionRef,
-		className: "relative z-10 -mt-16 pb-6 lg:mt-0 lg:py-10",
+		className: "relative z-30 -mt-16 pb-6 lg:mt-0 lg:py-10",
 		children: /* @__PURE__ */ jsx("div", {
-			className: "max-w-[95rem] mx-auto px-4 lg:px-6",
+			className: "relative z-10 max-w-[95rem] mx-auto px-4 lg:px-6",
 			children: /* @__PURE__ */ jsx("div", {
 				className: "bg-white rounded-3xl p-3 shadow-lg border border-gray-100 lg:p-2",
 				children: /* @__PURE__ */ jsx("div", {
@@ -165,7 +165,7 @@ function QuickAccess({ items = [] }) {
 								}),
 								!isLast && /* @__PURE__ */ jsx("span", {
 									"aria-hidden": "true",
-									className: "hidden lg:block absolute right-0 top-4 bottom-4 w-px bg-gray-200"
+									className: "hidden lg:block absolute right-0 top-4 bottom-4 w-px bg-gray-200 pointer-events-none"
 								})
 							]
 						}, item.id);

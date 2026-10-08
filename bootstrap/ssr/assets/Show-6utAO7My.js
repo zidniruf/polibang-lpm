@@ -80,89 +80,102 @@ function ShareButton({ title }) {
 			fill: "white"
 		}
 	];
-	const iconClass = "flex h-8 w-8 md:h-9 md:w-9 items-center justify-center rounded-full shadow transition hover:scale-110";
-	return /* @__PURE__ */ jsxs("div", {
+	const iconClass = "flex h-8 w-8 md:h-9 md:w-9 items-center justify-center rounded-full shadow hover:scale-110 hover:shadow-lg";
+	const ease = "ease-[cubic-bezier(0.22,1,0.36,1)]";
+	return /* @__PURE__ */ jsx("div", {
 		className: "absolute bottom-3 right-3 md:bottom-4 md:right-4 z-10 flex flex-col items-center",
-		children: [
-			/* @__PURE__ */ jsx("div", {
-				className: `mb-2 md:mb-3 flex flex-col items-center gap-2 md:gap-3 rounded-full bg-white p-1.5 md:p-2 shadow-xl transition-all duration-300 origin-bottom ${open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0 h-0 p-0 mb-0 overflow-hidden"}`,
-				children: items.map((item) => {
-					const svg = /* @__PURE__ */ jsx("svg", {
+		children: /* @__PURE__ */ jsxs("div", {
+			className: "relative",
+			children: [
+				/* @__PURE__ */ jsx("div", {
+					className: `absolute bottom-full left-0 right-0 mb-2 md:mb-3 flex justify-center origin-bottom transition-all duration-300 ${ease} ${open ? "visible opacity-100 translate-y-0 scale-100" : "invisible opacity-0 translate-y-3 scale-90 pointer-events-none"}`,
+					children: /* @__PURE__ */ jsx("div", {
+						className: "flex flex-col items-center gap-2 md:gap-3 rounded-full bg-white p-1.5 md:p-2 shadow-xl",
+						children: items.map((item, index) => {
+							const svg = /* @__PURE__ */ jsx("svg", {
+								viewBox: "0 0 24 24",
+								className: "h-4 w-4 md:h-5 md:w-5",
+								fill: item.fill || "none",
+								stroke: item.stroke || "none",
+								strokeWidth: item.stroke ? 2 : 0,
+								strokeLinecap: "round",
+								strokeLinejoin: "round",
+								children: item.icon
+							});
+							const itemStyle = { transitionDelay: open ? `${(items.length - 1 - index) * 40}ms` : "0ms" };
+							const itemClass = `${iconClass} ${item.bg} transition-all duration-300 ${ease} ${open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`;
+							if (item.href) return /* @__PURE__ */ jsx("a", {
+								href: item.href,
+								target: "_blank",
+								rel: "noopener noreferrer",
+								title: item.name,
+								"aria-label": `Bagikan ke ${item.name}`,
+								tabIndex: open ? 0 : -1,
+								style: itemStyle,
+								className: itemClass,
+								children: svg
+							}, item.name);
+							return /* @__PURE__ */ jsx("button", {
+								type: "button",
+								onClick: item.onClick,
+								title: item.name,
+								"aria-label": item.name,
+								tabIndex: open ? 0 : -1,
+								style: itemStyle,
+								className: itemClass,
+								children: svg
+							}, item.name);
+						})
+					})
+				}),
+				/* @__PURE__ */ jsxs("button", {
+					type: "button",
+					onClick: () => setOpen((value) => !value),
+					"aria-label": "Bagikan",
+					"aria-expanded": open,
+					className: "relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-gray-100 text-gray-700 shadow-lg transition-all duration-300 hover:scale-105 hover:bg-gray-200 active:scale-95",
+					children: [/* @__PURE__ */ jsxs("svg", {
 						viewBox: "0 0 24 24",
-						className: "h-4 w-4 md:h-5 md:w-5",
-						fill: item.fill || "none",
-						stroke: item.stroke || "none",
-						strokeWidth: item.stroke ? 2 : 0,
+						className: `absolute h-5 w-5 md:h-6 md:w-6 transition-all duration-300 ${ease} ${open ? "opacity-0 rotate-90 scale-50" : "opacity-100 rotate-0 scale-100"}`,
+						fill: "none",
+						stroke: "currentColor",
+						strokeWidth: "2",
 						strokeLinecap: "round",
 						strokeLinejoin: "round",
-						children: item.icon
-					});
-					if (item.href) return /* @__PURE__ */ jsx("a", {
-						href: item.href,
-						target: "_blank",
-						rel: "noopener noreferrer",
-						title: item.name,
-						"aria-label": `Bagikan ke ${item.name}`,
-						className: `${iconClass} ${item.bg}`,
-						children: svg
-					}, item.name);
-					return /* @__PURE__ */ jsx("button", {
-						type: "button",
-						onClick: item.onClick,
-						title: item.name,
-						"aria-label": item.name,
-						className: `${iconClass} ${item.bg}`,
-						children: svg
-					}, item.name);
+						children: [
+							/* @__PURE__ */ jsx("circle", {
+								cx: "18",
+								cy: "5",
+								r: "3"
+							}),
+							/* @__PURE__ */ jsx("circle", {
+								cx: "6",
+								cy: "12",
+								r: "3"
+							}),
+							/* @__PURE__ */ jsx("circle", {
+								cx: "18",
+								cy: "19",
+								r: "3"
+							}),
+							/* @__PURE__ */ jsx("path", { d: "M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" })
+						]
+					}), /* @__PURE__ */ jsx("svg", {
+						viewBox: "0 0 24 24",
+						className: `absolute h-5 w-5 transition-all duration-300 ${ease} ${open ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"}`,
+						fill: "none",
+						stroke: "currentColor",
+						strokeWidth: "2.5",
+						strokeLinecap: "round",
+						children: /* @__PURE__ */ jsx("path", { d: "M6 6l12 12M18 6L6 18" })
+					})]
+				}),
+				/* @__PURE__ */ jsx("span", {
+					className: `pointer-events-none absolute right-full top-1/2 -translate-y-1/2 mr-2 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-xs text-white transition-all duration-300 ${copied ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2"}`,
+					children: "Link tersalin!"
 				})
-			}),
-			/* @__PURE__ */ jsx("button", {
-				type: "button",
-				onClick: () => setOpen((value) => !value),
-				"aria-label": "Bagikan",
-				"aria-expanded": open,
-				className: "flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-gray-100 text-gray shadow-lg transition hover:scale-105 hover:bg-gray-200",
-				children: open ? /* @__PURE__ */ jsx("svg", {
-					viewBox: "0 0 24 24",
-					className: "h-5 w-5",
-					fill: "none",
-					stroke: "currentColor",
-					strokeWidth: "2.5",
-					strokeLinecap: "round",
-					children: /* @__PURE__ */ jsx("path", { d: "M6 6l12 12M18 6L6 18" })
-				}) : /* @__PURE__ */ jsxs("svg", {
-					viewBox: "0 0 24 24",
-					className: "h-5 w-5 md:h-6 md:w-6",
-					fill: "none",
-					stroke: "currentColor",
-					strokeWidth: "2",
-					strokeLinecap: "round",
-					strokeLinejoin: "round",
-					children: [
-						/* @__PURE__ */ jsx("circle", {
-							cx: "18",
-							cy: "5",
-							r: "3"
-						}),
-						/* @__PURE__ */ jsx("circle", {
-							cx: "6",
-							cy: "12",
-							r: "3"
-						}),
-						/* @__PURE__ */ jsx("circle", {
-							cx: "18",
-							cy: "19",
-							r: "3"
-						}),
-						/* @__PURE__ */ jsx("path", { d: "M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" })
-					]
-				})
-			}),
-			copied && /* @__PURE__ */ jsx("span", {
-				className: "absolute -left-24 bottom-14 md:bottom-16 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-xs text-white",
-				children: "Link tersalin!"
-			})
-		]
+			]
+		})
 	});
 }
 function Show({ news, share }) {
@@ -212,7 +225,11 @@ function Show({ news, share }) {
 					property: "og:image:alt",
 					content: news.title
 				}),
-				/* @__PURE__ */ jsx("meta", { content: "image/jpeg" })
+				/* @__PURE__ */ jsx("meta", {
+					"head-key": "og:image:type",
+					property: "og:image:type",
+					content: "image/jpeg"
+				})
 			] }),
 			/* @__PURE__ */ jsx("meta", {
 				name: "twitter:card",

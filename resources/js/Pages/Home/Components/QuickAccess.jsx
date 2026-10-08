@@ -103,18 +103,13 @@ export default function QuickAccess({ items = [] }) {
                 }}
             />
 
+            {/* FIX: z-30 supaya section berada di atas hero yang tumpang tindih (-mt-16) */}
             <section
                 ref={sectionRef}
-                className="relative z-10 -mt-16 pb-6 lg:mt-0 lg:py-10"
+                className="relative z-30 -mt-16 pb-6 lg:mt-0 lg:py-10"
             >
-                <div className="max-w-[95rem] mx-auto px-4 lg:px-6">
+                <div className="relative z-10 max-w-[95rem] mx-auto px-4 lg:px-6">
                     <div className="bg-white rounded-3xl p-3 shadow-lg border border-gray-100 lg:p-2">
-                        {/*
-                          Mobile  : 3 kolom (otomatis 2 baris)
-                          Desktop : semua item dalam 1 baris, lebar kolom sama rata.
-                          (Tidak memakai class dinamis `lg:grid-cols-${n}` karena
-                          Tailwind tidak men-generate class yang disusun dari variabel.)
-                        */}
                         <div className="grid grid-cols-3 gap-2 lg:grid-cols-none lg:grid-flow-col lg:auto-cols-fr lg:gap-0">
                             {items.map((item, index) => {
                                 const link = getLink(item);
@@ -176,7 +171,7 @@ export default function QuickAccess({ items = [] }) {
                                         {!isLast && (
                                             <span
                                                 aria-hidden="true"
-                                                className="hidden lg:block absolute right-0 top-4 bottom-4 w-px bg-gray-200"
+                                                className="hidden lg:block absolute right-0 top-4 bottom-4 w-px bg-gray-200 pointer-events-none"
                                             />
                                         )}
                                     </a>

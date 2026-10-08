@@ -198,22 +198,22 @@ export default function Hero({ setting }) {
                 }}
             />
 
-            <section
-                className="relative overflow-hidden"
-                style={{
-                    height: config.height,
-                    minHeight: config.minHeight,
-                }}
-            >
+<section
+    className="relative isolate z-0 overflow-hidden"
+    style={{
+        height: config.height,
+        minHeight: config.minHeight,
+    }}
+>
 
                 {/* BACKGROUND */}
-                <div
-                    ref={parallaxRef}
-                    className="absolute inset-0 z-0"
-                    style={{
-                        willChange: "transform",
-                    }}
-                >
+<div
+    ref={parallaxRef}
+    className="absolute inset-0 z-0 pointer-events-none lg:pointer-events-auto"
+    style={{
+        willChange: "transform",
+    }}
+>
                     <WoofyRevealDual
                         srcFront={srcFront}
                         srcReveal={srcReveal}
@@ -247,14 +247,15 @@ export default function Hero({ setting }) {
                 />
 
                 {/* CONTENT */}
-                <div
-                    className="
-                        relative z-20 h-full
-                        flex
-                        items-start
-                        lg:items-center
-                    "
-                >
+<div
+    className="
+        relative z-20 h-full
+        flex
+        items-start
+        lg:items-center
+        pointer-events-none
+    "
+>
                     <div className="max-w-7xl w-full mx-auto px-5 sm:px-6 lg:px-8">
 
                         <div
@@ -345,18 +346,19 @@ export default function Hero({ setting }) {
                             </p>
 
                             {/* BUTTONS */}
-                            <div
-                                className="
-                                    hero-btns
-                                    mt-5
-                                    sm:mt-6
-                                    flex
-                                    flex-col
-                                    sm:flex-row
-                                    gap-2.5
-                                    sm:gap-3
-                                "
-                            >
+<div
+    className="
+        hero-btns
+        pointer-events-auto
+        mt-5
+        sm:mt-6
+        flex
+        flex-col
+        sm:flex-row
+        gap-2.5
+        sm:gap-3
+    "
+>
                                 <a
                                     href="/dokumen"
                                     className="

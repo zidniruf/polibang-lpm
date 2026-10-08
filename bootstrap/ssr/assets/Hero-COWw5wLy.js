@@ -462,7 +462,7 @@ function Hero({ setting }) {
                             }
                         }
                     ` } }), /* @__PURE__ */ jsxs("section", {
-		className: "relative overflow-hidden",
+		className: "relative isolate z-0 overflow-hidden",
 		style: {
 			height: config.height,
 			minHeight: config.minHeight
@@ -470,7 +470,7 @@ function Hero({ setting }) {
 		children: [
 			/* @__PURE__ */ jsx("div", {
 				ref: parallaxRef,
-				className: "absolute inset-0 z-0",
+				className: "absolute inset-0 z-0 pointer-events-none lg:pointer-events-auto",
 				style: { willChange: "transform" },
 				children: /* @__PURE__ */ jsx(WoofyRevealDual, {
 					srcFront,
@@ -495,7 +495,7 @@ function Hero({ setting }) {
 				style: { background: "linear-gradient(to top, rgba(2,20,32,0.42) 0%, rgba(2,20,32,0) 38%)" }
 			}),
 			/* @__PURE__ */ jsx("div", {
-				className: "\r\n                        relative z-20 h-full\r\n                        flex\r\n                        items-start\r\n                        lg:items-center\r\n                    ",
+				className: "\r\n        relative z-20 h-full\r\n        flex\r\n        items-start\r\n        lg:items-center\r\n        pointer-events-none\r\n    ",
 				children: /* @__PURE__ */ jsx("div", {
 					className: "max-w-7xl w-full mx-auto px-5 sm:px-6 lg:px-8",
 					children: /* @__PURE__ */ jsxs("div", {
@@ -524,7 +524,7 @@ function Hero({ setting }) {
 								children: setting?.hero_subtitle || "Mendorong budaya mutu yang berkelanjutan melalui PPEPP, Audit Mutu Internal, dan peningkatan kualitas pendidikan."
 							}),
 							/* @__PURE__ */ jsxs("div", {
-								className: "\r\n                                    hero-btns\r\n                                    mt-5\r\n                                    sm:mt-6\r\n                                    flex\r\n                                    flex-col\r\n                                    sm:flex-row\r\n                                    gap-2.5\r\n                                    sm:gap-3\r\n                                ",
+								className: "\r\n        hero-btns\r\n        pointer-events-auto\r\n        mt-5\r\n        sm:mt-6\r\n        flex\r\n        flex-col\r\n        sm:flex-row\r\n        gap-2.5\r\n        sm:gap-3\r\n    ",
 								children: [/* @__PURE__ */ jsx("a", {
 									href: "/dokumen",
 									className: "\r\n                                        px-5\r\n                                        py-3\r\n                                        text-sm\r\n                                        bg-green-600\r\n                                        hover:bg-green-700\r\n                                        rounded-xl\r\n                                        font-medium\r\n                                        transition\r\n                                        text-center\r\n                                        text-white\r\n                                        shadow-lg\r\n                                        w-fit\r\n                                    ",
