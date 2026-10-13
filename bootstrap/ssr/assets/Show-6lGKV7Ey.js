@@ -1,4 +1,4 @@
-import { t as PublicLayout } from "./PublicLayout-Cyz_5bcd.js";
+import { t as PublicLayout } from "./PublicLayout-f-0dCmt7.js";
 import { Head, Link } from "@inertiajs/react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { Download } from "lucide-react";

@@ -106,7 +106,12 @@ function SuggestDropdown({ query, onSelect, onClose }) {
 }
 
 export default function Navbar() {
-    const { setting, menuGroups = [], navigationLinks = [] } = usePage().props;
+const {
+    setting,
+    mainPages = [],
+    menuGroups = [],
+    navigationLinks = [],
+} = usePage().props;
 
     const [searchOpen,     setSearchOpen]     = useState(false);
     const [searchQuery,    setSearchQuery]     = useState("");
@@ -114,6 +119,8 @@ export default function Navbar() {
     const [activeDropdown, setActiveDropdown]  = useState(null);
     const [mobileOpen,     setMobileOpen]      = useState(false);
     const [mobileExpanded, setMobileExpanded]  = useState(null);
+    const [mobilePageExpanded, setMobilePageExpanded] = useState(null);
+    const [mobileCategoryExpanded, setMobileCategoryExpanded] = useState(null);
     const searchInputRef    = useRef(null);
     const searchWrapperRef  = useRef(null);
 
@@ -158,8 +165,9 @@ export default function Navbar() {
     const logoSrc  = setting?.logo ? `/storage/${setting.logo}` : null;
     const siteName = setting?.site_name || "P2M Polibang";
 
-    const allNavGroups = Array.isArray(menuGroups) ? menuGroups : [];
-    const allNavLinks  = Array.isArray(navigationLinks) ? navigationLinks : [];
+const allMainPages = Array.isArray(mainPages) ? mainPages : [];
+const allNavGroups = Array.isArray(menuGroups) ? menuGroups : [];
+const allNavLinks = Array.isArray(navigationLinks) ? navigationLinks : [];
 
     return (
         <>
@@ -248,7 +256,11 @@ export default function Navbar() {
                     <div className="flex items-center justify-center h-11">
 
                         <NavLink href="/">Beranda</NavLink>
-
+{allMainPages.map((page) => (
+    <NavLink key={page.id} href={`/halaman/${page.slug}`}>
+        {page.title}
+    </NavLink>
+))}
                         {allNavGroups.map((group) => (
                             <div key={group.id} className="relative h-full flex items-center nav-dropdown-wrap">
                                 <button
@@ -258,16 +270,81 @@ export default function Navbar() {
                                     {group.name}
                                     <ChevronDown size={12} className={`transition-transform duration-200 ${activeDropdown === group.id ? "rotate-180" : ""}`} />
                                 </button>
-                                {activeDropdown === group.id && group.pages?.length > 0 && (
-                                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 bg-white border border-gray-100 rounded-xl shadow-lg min-w-[220px] overflow-hidden z-50 py-1">
-                                        {group.pages.map((page) => (
-                                            <a key={page.id} href={`/halaman/${page.slug}`}
-                                                className="block px-5 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-colors">
-                                                {page.title}
-                                            </a>
-                                        ))}
-                                    </div>
-                                )}
+
+{activeDropdown === group.id &&
+    (
+        (group.pages?.length ?? 0) > 0 ||
+        (group.navigation_categories?.length ?? 0) > 0
+    ) && (
+    <div className="absolute top-full left-1/2 -translate-x-1/2 bg-white border border-gray-100 rounded-xl shadow-lg min-w-[240px] overflow-visible z-50 py-1">
+        {group.pages.map((page) => (
+            <div key={page.id} className="relative group/submenu">
+                <div className="flex items-center justify-between hover:bg-gray-50">
+                    <a
+                        href={`/halaman/${page.slug}`}
+                        className="flex-1 px-5 py-2.5 text-sm text-gray-600 hover:text-blue-600"
+                    >
+                        {page.title}
+                    </a>
+
+                    {page.child_pages?.length > 0 && (
+                        <ChevronDown
+                            size={13}
+                            className="-rotate-90 mr-3 text-gray-400"
+                        />
+                    )}
+                </div>
+
+                {page.child_pages?.length > 0 && (
+                    <div className="absolute left-full top-0 hidden min-w-[220px] rounded-xl border border-gray-100 bg-white py-1 shadow-lg group-hover/submenu:block">
+                        {page.child_pages.map((child) => (
+                            <a
+                                key={child.id}
+                                href={`/halaman/${child.slug}`}
+                                className="block px-5 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600"
+                            >
+                                {child.title}
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </div>
+        ))}
+
+                {group.navigation_categories?.map((category) => (
+            <div
+                key={`category-${category.id}`}
+                className="relative group/category"
+            >
+                <div className="flex items-center justify-between px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                    <span>{category.name}</span>
+
+                    {category.pages?.length > 0 && (
+                        <ChevronDown
+                            size={13}
+                            className="-rotate-90 text-gray-400"
+                        />
+                    )}
+                </div>
+
+                {category.pages?.length > 0 && (
+                    <div className="absolute left-full top-0 hidden min-w-[220px] rounded-xl border border-gray-100 bg-white py-1 shadow-lg group-hover/category:block">
+                        {category.pages.map((child) => (
+                            <a
+                                key={child.id}
+                                href={`/halaman/${child.slug}`}
+                                className="block px-5 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600"
+                            >
+                                {child.title}
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </div>
+        ))}
+    </div>
+)}
+
                             </div>
                         ))}
 
@@ -379,6 +456,17 @@ className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent bord
                             Beranda
                         </a>
 
+                        {allMainPages.map((page) => (
+    <a
+        key={page.id}
+        href={`/halaman/${page.slug}`}
+        onClick={() => setMobileOpen(false)}
+        className="flex items-center h-12 px-2 text-sm font-semibold text-gray-700 hover:text-blue-600 border-b border-gray-50"
+    >
+        {page.title}
+    </a>
+))}
+
                         {allNavGroups.map((group) => (
                             <div key={group.id} className="border-b border-gray-50">
                                 <button
@@ -388,17 +476,110 @@ className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent bord
                                     {group.name}
                                     <ChevronDown size={16} className={`transition-transform ${mobileExpanded === group.id ? "rotate-180" : ""}`} />
                                 </button>
-                                {mobileExpanded === group.id && group.pages?.length > 0 && (
-                                    <div className="bg-gray-50 pb-2">
-                                        {group.pages.map((page) => (
-                                            <a key={page.id} href={`/halaman/${page.slug}`}
-                                                onClick={() => setMobileOpen(false)}
-                                                className="block px-6 py-2.5 text-sm text-gray-600 hover:text-blue-600">
-                                                {page.title}
-                                            </a>
-                                        ))}
-                                    </div>
-                                )}
+
+{mobileExpanded === group.id &&
+    ((group.pages?.length ?? 0) > 0 ||
+        (group.navigation_categories?.length ?? 0) > 0) && (
+    <div className="bg-gray-50 pb-2">
+        {(group.pages ?? []).map((page) => (
+            <div key={page.id}>
+                <div className="flex items-center justify-between">
+                    <a
+                        href={`/halaman/${page.slug}`}
+                        onClick={() => setMobileOpen(false)}
+                        className="flex-1 block px-6 py-2.5 text-sm text-gray-600 hover:text-blue-600"
+                    >
+                        {page.title}
+                    </a>
+
+                    {page.child_pages?.length > 0 && (
+                        <button
+                            type="button"
+                            onClick={() =>
+setMobilePageExpanded((current) =>
+    current === page.id ? null : page.id
+)
+                            }
+                            className="px-5 py-2.5 text-gray-500"
+                            aria-label={`Tampilkan submenu ${page.title}`}
+                        >
+                            <ChevronDown
+                                size={15}
+                                className={`transition-transform ${
+                                    mobilePageExpanded === page.id
+                                        ? "rotate-180"
+                                        : ""
+                                }`}
+                            />
+                        </button>
+                    )}
+                </div>
+
+{mobilePageExpanded === page.id &&
+    page.child_pages?.length > 0 && (
+                        <div className="bg-white py-1">
+                            {page.child_pages.map((child) => (
+                                <a
+                                    key={child.id}
+                                    href={`/halaman/${child.slug}`}
+                                    onClick={() => setMobileOpen(false)}
+                                    className="block px-10 py-2.5 text-sm text-gray-500 hover:text-blue-600"
+                                >
+                                    {child.title}
+                                </a>
+                            ))}
+                        </div>
+                    )}
+            </div>
+        ))}
+
+{(group.navigation_categories ?? []).map((category) => (
+    <div key={`category-${category.id}`}>
+<button
+    type="button"
+    onClick={() =>
+        setMobileCategoryExpanded((current) =>
+            current === category.id ? null : category.id
+        )
+    }
+    className="w-full flex items-center justify-between px-6 py-3 text-sm font-normal text-gray-600 "
+    aria-expanded={mobileCategoryExpanded === category.id}
+>
+    <span>{category.name}</span>
+
+    {category.pages?.length > 0 && (
+        <ChevronDown
+            size={15}
+            className={`text-gray-500 transition-transform ${
+                mobileCategoryExpanded === category.id
+                    ? "rotate-180"
+                    : ""
+            }`}
+        />
+    )}
+</button>
+
+        {mobileCategoryExpanded === category.id &&
+            category.pages?.length > 0 && (
+                <div className="bg-white py-1">
+                    {category.pages.map((child) => (
+                        <a
+                            key={child.id}
+                            href={`/halaman/${child.slug}`}
+                            onClick={() => setMobileOpen(false)}
+                            className="block px-10 py-2.5 text-sm text-gray-600 hover:text-blue-600"
+                        >
+                            {child.title}
+                        </a>
+                    ))}
+                </div>
+            )}
+    </div>
+))}
+
+    </div>
+)}
+
                             </div>
                         ))}
 

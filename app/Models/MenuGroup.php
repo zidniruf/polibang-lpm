@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MenuGroup extends Model
 {
@@ -24,7 +25,10 @@ class MenuGroup extends Model
             $group->slug = Str::slug($group->name);
         });
     }
-
+public function navigationCategories(): HasMany
+{
+    return $this->hasMany(NavigationCategory::class);
+}
     public function pages()
     {
         return $this->hasMany(Page::class);

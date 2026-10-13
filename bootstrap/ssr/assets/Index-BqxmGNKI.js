@@ -1,4 +1,4 @@
-import { t as PublicLayout } from "./PublicLayout-Cyz_5bcd.js";
+import { t as PublicLayout } from "./PublicLayout-f-0dCmt7.js";
 import { jsx } from "react/jsx-runtime";
 //#region resources/js/Pages/Profile/Index.jsx
 function Profil() {

@@ -177,13 +177,15 @@ function SuggestDropdown({ query, onSelect, onClose }) {
 	});
 }
 function Navbar() {
-	const { setting, menuGroups = [], navigationLinks = [] } = usePage().props;
+	const { setting, mainPages = [], menuGroups = [], navigationLinks = [] } = usePage().props;
 	const [searchOpen, setSearchOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [suggestOpen, setSuggestOpen] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState(null);
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [mobileExpanded, setMobileExpanded] = useState(null);
+	const [mobilePageExpanded, setMobilePageExpanded] = useState(null);
+	const [mobileCategoryExpanded, setMobileCategoryExpanded] = useState(null);
 	const searchInputRef = useRef(null);
 	const searchWrapperRef = useRef(null);
 	useEffect(() => {
@@ -218,6 +220,7 @@ function Navbar() {
 	};
 	const logoSrc = setting?.logo ? `/storage/${setting.logo}` : null;
 	const siteName = setting?.site_name || "P2M Polibang";
+	const allMainPages = Array.isArray(mainPages) ? mainPages : [];
 	const allNavGroups = Array.isArray(menuGroups) ? menuGroups : [];
 	const allNavLinks = Array.isArray(navigationLinks) ? navigationLinks : [];
 	return /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsxs("header", {
@@ -309,6 +312,10 @@ function Navbar() {
 							href: "/",
 							children: "Beranda"
 						}),
+						allMainPages.map((page) => /* @__PURE__ */ jsx(NavLink, {
+							href: `/halaman/${page.slug}`,
+							children: page.title
+						}, page.id)),
 						allNavGroups.map((group) => /* @__PURE__ */ jsxs("div", {
 							className: "relative h-full flex items-center nav-dropdown-wrap",
 							children: [/* @__PURE__ */ jsxs("button", {
@@ -318,13 +325,45 @@ function Navbar() {
 									size: 12,
 									className: `transition-transform duration-200 ${activeDropdown === group.id ? "rotate-180" : ""}`
 								})]
-							}), activeDropdown === group.id && group.pages?.length > 0 && /* @__PURE__ */ jsx("div", {
-								className: "absolute top-full left-1/2 -translate-x-1/2 mt-0 bg-white border border-gray-100 rounded-xl shadow-lg min-w-[220px] overflow-hidden z-50 py-1",
-								children: group.pages.map((page) => /* @__PURE__ */ jsx("a", {
-									href: `/halaman/${page.slug}`,
-									className: "block px-5 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-colors",
-									children: page.title
-								}, page.id))
+							}), activeDropdown === group.id && ((group.pages?.length ?? 0) > 0 || (group.navigation_categories?.length ?? 0) > 0) && /* @__PURE__ */ jsxs("div", {
+								className: "absolute top-full left-1/2 -translate-x-1/2 bg-white border border-gray-100 rounded-xl shadow-lg min-w-[240px] overflow-visible z-50 py-1",
+								children: [group.pages.map((page) => /* @__PURE__ */ jsxs("div", {
+									className: "relative group/submenu",
+									children: [/* @__PURE__ */ jsxs("div", {
+										className: "flex items-center justify-between hover:bg-gray-50",
+										children: [/* @__PURE__ */ jsx("a", {
+											href: `/halaman/${page.slug}`,
+											className: "flex-1 px-5 py-2.5 text-sm text-gray-600 hover:text-blue-600",
+											children: page.title
+										}), page.child_pages?.length > 0 && /* @__PURE__ */ jsx(ChevronDown, {
+											size: 13,
+											className: "-rotate-90 mr-3 text-gray-400"
+										})]
+									}), page.child_pages?.length > 0 && /* @__PURE__ */ jsx("div", {
+										className: "absolute left-full top-0 hidden min-w-[220px] rounded-xl border border-gray-100 bg-white py-1 shadow-lg group-hover/submenu:block",
+										children: page.child_pages.map((child) => /* @__PURE__ */ jsx("a", {
+											href: `/halaman/${child.slug}`,
+											className: "block px-5 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600",
+											children: child.title
+										}, child.id))
+									})]
+								}, page.id)), group.navigation_categories?.map((category) => /* @__PURE__ */ jsxs("div", {
+									className: "relative group/category",
+									children: [/* @__PURE__ */ jsxs("div", {
+										className: "flex items-center justify-between px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50",
+										children: [/* @__PURE__ */ jsx("span", { children: category.name }), category.pages?.length > 0 && /* @__PURE__ */ jsx(ChevronDown, {
+											size: 13,
+											className: "-rotate-90 text-gray-400"
+										})]
+									}), category.pages?.length > 0 && /* @__PURE__ */ jsx("div", {
+										className: "absolute left-full top-0 hidden min-w-[220px] rounded-xl border border-gray-100 bg-white py-1 shadow-lg group-hover/category:block",
+										children: category.pages.map((child) => /* @__PURE__ */ jsx("a", {
+											href: `/halaman/${child.slug}`,
+											className: "block px-5 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600",
+											children: child.title
+										}, child.id))
+									})]
+								}, `category-${category.id}`))]
 							})]
 						}, group.id)),
 						allNavLinks.map((link) => /* @__PURE__ */ jsx(NavLink, {
@@ -434,6 +473,12 @@ function Navbar() {
 						className: "flex items-center h-12 px-2 text-sm font-semibold text-gray-700 hover:text-blue-600 border-b border-gray-50",
 						children: "Beranda"
 					}),
+					allMainPages.map((page) => /* @__PURE__ */ jsx("a", {
+						href: `/halaman/${page.slug}`,
+						onClick: () => setMobileOpen(false),
+						className: "flex items-center h-12 px-2 text-sm font-semibold text-gray-700 hover:text-blue-600 border-b border-gray-50",
+						children: page.title
+					}, page.id)),
 					allNavGroups.map((group) => /* @__PURE__ */ jsxs("div", {
 						className: "border-b border-gray-50",
 						children: [/* @__PURE__ */ jsxs("button", {
@@ -443,14 +488,51 @@ function Navbar() {
 								size: 16,
 								className: `transition-transform ${mobileExpanded === group.id ? "rotate-180" : ""}`
 							})]
-						}), mobileExpanded === group.id && group.pages?.length > 0 && /* @__PURE__ */ jsx("div", {
+						}), mobileExpanded === group.id && ((group.pages?.length ?? 0) > 0 || (group.navigation_categories?.length ?? 0) > 0) && /* @__PURE__ */ jsxs("div", {
 							className: "bg-gray-50 pb-2",
-							children: group.pages.map((page) => /* @__PURE__ */ jsx("a", {
-								href: `/halaman/${page.slug}`,
-								onClick: () => setMobileOpen(false),
-								className: "block px-6 py-2.5 text-sm text-gray-600 hover:text-blue-600",
-								children: page.title
-							}, page.id))
+							children: [(group.pages ?? []).map((page) => /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsxs("div", {
+								className: "flex items-center justify-between",
+								children: [/* @__PURE__ */ jsx("a", {
+									href: `/halaman/${page.slug}`,
+									onClick: () => setMobileOpen(false),
+									className: "flex-1 block px-6 py-2.5 text-sm text-gray-600 hover:text-blue-600",
+									children: page.title
+								}), page.child_pages?.length > 0 && /* @__PURE__ */ jsx("button", {
+									type: "button",
+									onClick: () => setMobilePageExpanded((current) => current === page.id ? null : page.id),
+									className: "px-5 py-2.5 text-gray-500",
+									"aria-label": `Tampilkan submenu ${page.title}`,
+									children: /* @__PURE__ */ jsx(ChevronDown, {
+										size: 15,
+										className: `transition-transform ${mobilePageExpanded === page.id ? "rotate-180" : ""}`
+									})
+								})]
+							}), mobilePageExpanded === page.id && page.child_pages?.length > 0 && /* @__PURE__ */ jsx("div", {
+								className: "bg-white py-1",
+								children: page.child_pages.map((child) => /* @__PURE__ */ jsx("a", {
+									href: `/halaman/${child.slug}`,
+									onClick: () => setMobileOpen(false),
+									className: "block px-10 py-2.5 text-sm text-gray-500 hover:text-blue-600",
+									children: child.title
+								}, child.id))
+							})] }, page.id)), (group.navigation_categories ?? []).map((category) => /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsxs("button", {
+								type: "button",
+								onClick: () => setMobileCategoryExpanded((current) => current === category.id ? null : category.id),
+								className: "w-full flex items-center justify-between px-6 py-3 text-sm font-normal text-gray-600 ",
+								"aria-expanded": mobileCategoryExpanded === category.id,
+								children: [/* @__PURE__ */ jsx("span", { children: category.name }), category.pages?.length > 0 && /* @__PURE__ */ jsx(ChevronDown, {
+									size: 15,
+									className: `text-gray-500 transition-transform ${mobileCategoryExpanded === category.id ? "rotate-180" : ""}`
+								})]
+							}), mobileCategoryExpanded === category.id && category.pages?.length > 0 && /* @__PURE__ */ jsx("div", {
+								className: "bg-white py-1",
+								children: category.pages.map((child) => /* @__PURE__ */ jsx("a", {
+									href: `/halaman/${child.slug}`,
+									onClick: () => setMobileOpen(false),
+									className: "block px-10 py-2.5 text-sm text-gray-600 hover:text-blue-600",
+									children: child.title
+								}, child.id))
+							})] }, `category-${category.id}`))]
 						})]
 					}, group.id)),
 					allNavLinks.map((link) => /* @__PURE__ */ jsx("a", {

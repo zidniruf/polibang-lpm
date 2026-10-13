@@ -1,4 +1,4 @@
-import { t as PublicLayout } from "./PublicLayout-Cyz_5bcd.js";
+import { t as PublicLayout } from "./PublicLayout-f-0dCmt7.js";
 import { Head } from "@inertiajs/react";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";

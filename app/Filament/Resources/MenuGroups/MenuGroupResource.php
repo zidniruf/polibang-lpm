@@ -25,7 +25,7 @@ class MenuGroupResource extends Resource
         'Navigasi';
 
     protected static ?string $navigationLabel =
-        'Kelompok Menu';
+        'Navigasi Utama';
 
     protected static ?int $navigationSort = 2;
 
