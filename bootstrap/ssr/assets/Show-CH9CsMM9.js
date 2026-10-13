@@ -228,7 +228,7 @@ function Show({ news, share }) {
 				/* @__PURE__ */ jsx("meta", {
 					"head-key": "og:image:type",
 					property: "og:image:type",
-					content: "image/jpeg"
+					content: imageUrl?.toLowerCase().split("?")[0].endsWith(".webp") ? "image/webp" : imageUrl?.toLowerCase().split("?")[0].endsWith(".png") ? "image/png" : "image/jpeg"
 				})
 			] }),
 			/* @__PURE__ */ jsx("meta", {
