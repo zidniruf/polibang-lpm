@@ -40,38 +40,41 @@ class PageForm
 
                 Hidden::make('slug'),
 
-
 Select::make('navigation_type')
     ->label('Jenis Navigasi')
     ->options([
+        'main' => 'Navigasi Utama',
         'sub' => 'Sub Navigasi',
         'sub_sub' => 'Sub-sub Navigasi',
     ])
     ->default('sub')
     ->required()
     ->live()
-->afterStateUpdated(function ($state, $set) {
-    if ($state === 'sub') {
-        $set('parent_page_id', null);
-        $set('navigation_category_id', null);
-    } else {
-        $set('parent_page_id', null);
-    }
-}),
-
+    ->afterStateUpdated(function ($state, $set) {
+        if ($state === 'main') {
+            $set('menu_group_id', null);
+            $set('parent_page_id', null);
+            $set('navigation_category_id', null);
+        } elseif ($state === 'sub') {
+            $set('parent_page_id', null);
+            $set('navigation_category_id', null);
+        } else {
+            $set('parent_page_id', null);
+        }
+    }),
 
     Select::make('menu_group_id')
     ->label('Navigasi Utama')
-    ->visible(fn ($get) => in_array(
-        $get('navigation_type'),
-        ['sub', 'sub_sub'],
-        true
-    ))
-    ->required(fn ($get) => in_array(
-        $get('navigation_type'),
-        ['sub', 'sub_sub'],
-        true
-    ))
+->visible(fn ($get) => in_array(
+    $get('navigation_type'),
+    ['sub', 'sub_sub'],
+    true
+))
+->required(fn ($get) => in_array(
+    $get('navigation_type'),
+    ['sub', 'sub_sub'],
+    true
+))
     ->live()
 ->afterStateUpdated(function ($set) {
     $set('parent_page_id', null);
