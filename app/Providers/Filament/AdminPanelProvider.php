@@ -31,7 +31,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('adm-p2mpolibang')
             ->login(\App\Filament\Pages\Auth\Login::class)
-            ->passwordReset()
+            ->passwordReset(
+    requestAction: \App\Filament\Pages\Auth\PasswordReset\RequestPasswordReset::class,
+)
             ->brandName('P2M Polibang')
 
             ->plugin(

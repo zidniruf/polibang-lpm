@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\RateLimiter;
 
 class Login extends BaseLogin
 {
+
+protected string $view = 'filament.pages.auth.login';
+
     private const EMAIL_MAX_ATTEMPTS = 5;
 
     private const IP_MAX_ATTEMPTS = 20;
