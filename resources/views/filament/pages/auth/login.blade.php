@@ -338,7 +338,7 @@
                     <h1 class="p2m-title">Masuk ke akun Anda</h1>
                     <p class="p2m-sub">
                         Silakan masuk untuk mengakses sistem<br>
-                        Pusat Penjamin Mutu Politeknik Balekambang.
+                        Pusat Penjaminan Mutu Politeknik Balekambang.
                     </p>
 
                     <form wire:submit="authenticate" class="p2m-form" novalidate>

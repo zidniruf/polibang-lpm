@@ -19,15 +19,20 @@ class WebsiteSettingForm
                 Section::make('Identitas Website')
                     ->columns(2)
                     ->schema([
-
                         TextInput::make('site_name')
                             ->required(),
 
                         FileUpload::make('logo')
+                            ->label('Logo Website')
                             ->image()
                             ->disk('public')
                             ->directory('website'),
 
+                        FileUpload::make('favicon')
+                            ->label('Favicon Website')
+                            ->image()
+                            ->disk('public')
+                            ->directory('website'),
                     ]),
 
                 Section::make('Hero Homepage')

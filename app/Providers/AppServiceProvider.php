@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Inertia::share([
-            'setting' => fn () => WebsiteSetting::first(),
+            'setting' => fn () => WebsiteSetting::primary(),
 
             // Halaman yang tampil langsung sebagai tautan utama.
             'mainPages' => fn () => Page::query()

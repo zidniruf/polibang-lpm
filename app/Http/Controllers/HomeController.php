@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         return Inertia::render('Home/Index', [
 
-            'setting' => WebsiteSetting::first(),
+            'setting' => WebsiteSetting::primary(),
 
             'quickAccessItems' => QuickAccessItem::query()
                 ->where('display_on_frontend', true)

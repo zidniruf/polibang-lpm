@@ -2,7 +2,7 @@ import { t as PublicLayout } from "./PublicLayout-f-0dCmt7.js";
 import AboutLPM from "./AboutLPM-DKF8QkJJ.js";
 import AnnouncementPopup from "./AnnouncementPopup-BpjLY4ic.js";
 import Announcements from "./Announcements-C-E0SGYL.js";
-import Hero from "./Hero-COWw5wLy.js";
+import Hero from "./Hero-s0tgEAry.js";
 import LatestNews from "./LatestNews-BkMLWcI2.js";
 import QuickAccess from "./QuickAccess-B81kjp9j.js";
 import Testimonials from "./Testimonials-B0Zd2ItP.js";

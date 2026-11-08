@@ -8,14 +8,15 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditWebsiteSetting extends EditRecord
 {
-    protected static string $resource =
-        WebsiteSettingResource::class;
+    protected static string $resource = WebsiteSettingResource::class;
 
     public function mount($record = null): void
     {
-        $record ??= WebsiteSetting::firstOrCreate([
-            'site_name' => 'P2M Polibang',
-        ])->id;
+        $record ??= WebsiteSetting::primary()?->getKey();
+
+        if ($record === null) {
+            abort(404, 'Pengaturan website belum tersedia.');
+        }
 
         parent::mount($record);
     }

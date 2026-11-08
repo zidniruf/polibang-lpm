@@ -12,7 +12,7 @@ export default function Hero({ setting }) {
         ? `/storage/${setting.hero_image_2}`
         : "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80";
 
-    const headline = "Pusat Penjamin Mutu Politeknik Balekambang";
+    const headline = "Pusat Penjaminan Mutu Politeknik Balekambang";
 
     const parallaxRef = useRef(null);
 

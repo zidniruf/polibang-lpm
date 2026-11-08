@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         @php
-            $setting = \App\Models\WebsiteSetting::first();
+            $setting = \App\Models\WebsiteSetting::primary();
         @endphp
 
         <title inertia>
@@ -15,14 +15,20 @@
         {{-- Default description website --}}
         <meta
             name="description"
-            content="{{ $setting?->tagline ?? 'Situs web resmi Pusat Penjamin Mutu Politeknik Balekambang Jepara' }}"
+            content="{{ $setting?->tagline ?? 'Situs web resmi Pusat Penjaminan Mutu Politeknik Balekambang Jepara' }}"
         >
 
         {{-- Canonical URL --}}
         <link rel="canonical" href="{{ request()->url() }}">
 
         {{-- Favicon --}}
-        @if($setting?->logo)
+        @if($setting?->favicon)
+            <link
+                rel="icon"
+                type="image/png"
+                href="{{ asset('storage/' . $setting->favicon) }}"
+            >
+        @elseif($setting?->logo)
             <link
                 rel="icon"
                 type="image/png"

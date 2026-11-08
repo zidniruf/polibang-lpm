@@ -33,4 +33,15 @@ class WebsiteSetting extends Model
         'youtube',
         'tiktok',
     ];
+
+    public static function primary(): ?self
+    {
+        $id = match (app()->environment()) {
+            'production' => 4,
+            'local' => 1,
+            default => null,
+        };
+
+        return $id === null ? null : static::query()->find($id);
+    }
 }

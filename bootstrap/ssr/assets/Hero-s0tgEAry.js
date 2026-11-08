@@ -347,7 +347,7 @@ vec2 coverUV(vec2 uv, float imgAspect) {
 function Hero({ setting }) {
 	const srcFront = setting?.hero_image_1 ? `/storage/${setting.hero_image_1}` : "https://images.unsplash.com/photo-1562774053-701939374585?w=1200&q=80";
 	const srcReveal = setting?.hero_image_2 ? `/storage/${setting.hero_image_2}` : "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80";
-	const headline = "Pusat Penjamin Mutu Politeknik Balekambang";
+	const headline = "Pusat Penjaminan Mutu Politeknik Balekambang";
 	const parallaxRef = useRef(null);
 	const [device, setDevice] = useState("desktop");
 	useEffect(() => {
